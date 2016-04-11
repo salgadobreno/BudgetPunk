@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    style="@style/Base.TextAppearance.AppCompat.Headline">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/fixed_entry_name"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:text="${name}" />
+    <com.br.widgettest.ui.extensions.CategoryTextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fixed_entry_cat"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:text="${category}"
+        android:layout_weight="2" />
+    <com.br.widgettest.ui.extensions.CurrencyTextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/fixed_entry_val"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:text="${value}" />
+    <!--<Button-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:id="@+id/daily_entry_x"-->
+        <!--android:layout_weight="0"-->
+        <!--style="@style/Base.Widget.AppCompat.Button.Borderless"-->
+        <!--android:text="X" />-->
+</LinearLayout>

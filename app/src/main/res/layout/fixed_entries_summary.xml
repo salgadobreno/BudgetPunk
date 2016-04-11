@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="Daily Available:"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="${val}"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:id="@+id/fixed_entries_total" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="(${+add})"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:id="@+id/fixed_entries_summary_additive" />
+</LinearLayout>
