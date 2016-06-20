@@ -22,6 +22,12 @@
         android:id="@+id/fixed_entry_val"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
         android:text="${value}" />
+
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:text="x"
+        android:id="@+id/button" />
     <!--<Button-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="match_parent"-->

@@ -7,8 +7,9 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:id="@+id/buy_entry_name"
-        style="@style/Base.Widget.AppCompat.Button.Borderless"
-        android:text="${name}" />
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:text="${name}"
+        android:gravity="top" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,16 +17,16 @@
         android:orientation="vertical">
         <com.br.widgettest.ui.extensions.CurrencyTextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/buy_entry_val"
-            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            style="@style/TextAppearance.AppCompat.Medium"
             android:textAlignment="viewEnd"
             android:gravity="end"
             android:text="${value}" />
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            style="@style/TextAppearance.AppCompat.Medium"
             android:id="@+id/buy_entry_date_info"
             android:textAlignment="viewEnd"
             android:gravity="end"
@@ -33,7 +34,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            style="@android:style/TextAppearance.Holo.Small"
             android:id="@+id/buy_entry_modifier"
             android:textAlignment="viewEnd"
             android:gravity="end"

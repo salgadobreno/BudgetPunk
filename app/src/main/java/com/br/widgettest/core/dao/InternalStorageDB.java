@@ -2,7 +2,10 @@ package com.br.widgettest.core.dao;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Environment;
+import android.util.Log;
 
+import com.aop.annotations.Trace;
 import com.br.widgettest.R;
 import com.br.widgettest.core.BuyEntry;
 import com.br.widgettest.core.Category;
@@ -11,6 +14,7 @@ import com.br.widgettest.core.Entry;
 import com.br.widgettest.core.FixedEntry;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -28,15 +32,18 @@ import au.com.bytecode.opencsv.CSVWriter;
  * Created by Breno on 2/7/2016.
  */
 class InternalStorageDB implements DB {
+    private static final String TAG = "InternalStorageDB";
 
     private Context context;
 
     public InternalStorageDB(Context context) {
         this.context = context;
 
-//        try {
-//            Reader reader = new InputStreamReader(context.openFileInput(Entity.Entry.name()));
-//        } catch (FileNotFoundException e) {
+        try {
+            Log.d(TAG, "InternalStorageDB: trying to read reader");
+            Reader reader = new InputStreamReader(context.openFileInput(Entity.Entry.name()));
+        } catch (FileNotFoundException e) {
+            Log.d(TAG, "InternalStorageDB: file not found, seeding");
             try {
                 Resources resources = context.getResources();
                 Reader reader = new InputStreamReader(resources.openRawResource(R.raw.entry));
@@ -50,7 +57,7 @@ class InternalStorageDB implements DB {
             } catch (IOException e1) {
                 throw new RuntimeException("vtnc");
             }
-//        }
+        }
     }
 
     @Override
@@ -94,6 +101,7 @@ class InternalStorageDB implements DB {
                 try {
                     reader = new CSVReader(new InputStreamReader(context.openFileInput(Entity.Entry.name())));
                     list = new ArrayList<>();
+                    Log.d(TAG, "reading CSV:");
                     for (String[] csv : reader.readAll()) {
                         list.add(new CsvEntry().fromCsv(csv));
                     }
@@ -154,7 +162,7 @@ class InternalStorageDB implements DB {
         public String[] toCsv() {
             String[] csv = new String[] {
                     e.getName(),
-                    String.valueOf(e.getValue()),
+                    String.valueOf(e.getValue().getAmount().doubleValue()),
                     e.getStartDate() == null ? "" : String.valueOf(e.getStartDate().getTime()),
                     e.getEndDate() == null ? "" : String.valueOf(e.getEndDate().getTime()),
                     String.valueOf(Category.getCategories().indexOf(e.getCategory())),
@@ -177,7 +185,7 @@ class InternalStorageDB implements DB {
                 case FIXED:
                     return new FixedEntry(
                             csv[0],
-                            csv[1].equals("") ? null : Double.valueOf(csv[1]) * 30,
+                            csv[1].equals("") ? null : Double.valueOf(csv[1]),// * 30,
                             csv[2].equals("") ? null : new Date(Long.valueOf(csv[2])),
                             csv[3].equals("") ? null : new Date(Long.valueOf(csv[3])),
                             csv[4].equals("-1") ? Category.NULL : Category.getCategories().get(Integer.valueOf(csv[4])) //TODO stupid

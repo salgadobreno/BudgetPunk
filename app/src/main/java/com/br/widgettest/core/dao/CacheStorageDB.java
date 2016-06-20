@@ -1,5 +1,8 @@
 package com.br.widgettest.core.dao;
 
+import android.util.Log;
+
+import com.aop.annotations.Trace;
 import com.br.widgettest.core.Category;
 import com.br.widgettest.core.Entry;
 
@@ -11,6 +14,8 @@ import java.util.List;
  * Created by Breno on 2/9/2016.
  */
 class CacheStorageDB implements DB {
+    private static final String TAG = "CacheStorageDB";
+
     private final DB origin;
     private static List<Entry> entryListCache;
     private static List<Category> categoryListCache;

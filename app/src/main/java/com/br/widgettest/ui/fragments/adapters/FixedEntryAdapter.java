@@ -38,7 +38,7 @@ public class FixedEntryAdapter extends ArrayAdapter<Entry> {
 
         entryName.setText(entry.getName());
         entryCat.setCategory(entry.getCategory());
-        entryVal.setText(new CurrencyFormattedText(entry.getValue()));
+        entryVal.setText(new CurrencyFormattedText(entry.getMonthlyValue()) + "/d");
 
         return convertView;
     }

@@ -1,5 +1,8 @@
 package com.br.widgettest.core;
 
+import org.joda.money.Money;
+
+import java.math.RoundingMode;
 import java.util.Date;
 
 /**
@@ -12,9 +15,8 @@ public class FixedEntry extends Entry {
         super(name, value, new Date(), null, category, ENTRY_TYPE);
     }
 
-    @Override
-    public Double getValue() {
-        return super.getValue() / 30;
+    public Money getMonthlyValue() {
+        return getValue().dividedBy(30, RoundingMode.HALF_EVEN);
     }
 
     public FixedEntry(String name, Double value, Date startDate, Date endDate, Category category) {

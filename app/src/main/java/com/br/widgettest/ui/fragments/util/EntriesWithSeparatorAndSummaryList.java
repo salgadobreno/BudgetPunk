@@ -1,7 +1,11 @@
 package com.br.widgettest.ui.fragments.util;
 
+import android.util.Log;
+
 import com.br.widgettest.core.Entry;
 import com.br.widgettest.core.ledger.decorators.EntryByDateMap;
+
+import org.joda.money.Money;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,6 +16,8 @@ import java.util.List;
  * Created by Breno on 1/25/2016.
  */
 public class EntriesWithSeparatorAndSummaryList extends ArrayList<Object> {
+    private double dailyAvailable;
+    private List<Entry> entries;
 
     public enum EntryViewType {
         DATE_SEPARATOR(0), ENTRY(1), SUMMARY(2);
@@ -27,7 +33,17 @@ public class EntriesWithSeparatorAndSummaryList extends ArrayList<Object> {
         }
     }
 
-    public EntriesWithSeparatorAndSummaryList(EntryByDateMap map, double dailyAvailable) {
+    public EntriesWithSeparatorAndSummaryList(List<Entry> entries, double dailyAvailable) {
+        this.dailyAvailable = dailyAvailable;
+        this.entries = entries;
+
+        makeList();
+    }
+
+    private void makeList() {
+        clear();
+        EntryByDateMap map = new EntryByDateMap(entries, EntryByDateMap.Granularity.DAILY); //TODO: WARNING
+
         Double balance = 0d;
 
         List<Date> inverseSortedDates = new ArrayList<>(map.keySet());
@@ -40,9 +56,9 @@ public class EntriesWithSeparatorAndSummaryList extends ArrayList<Object> {
                 add(e);
             }
             Double[] doubles = new Double[2]; // total, balance
-            doubles[0] = calcEntryListTotal(entries);
+            doubles[0] = calcEntryListTotal(entries).getAmount().doubleValue();
 
-            balance += dailyAvailable + calcEntryListTotal(entries);
+            balance += dailyAvailable + calcEntryListTotal(entries).getAmount().doubleValue();
             doubles[1] = balance;
 
             add(doubles);
@@ -60,11 +76,21 @@ public class EntriesWithSeparatorAndSummaryList extends ArrayList<Object> {
         return r;
     }
 
-    private double calcEntryListTotal(List<Entry> entries) {
-        Double value = 0d;
+    @Override
+    public boolean remove(Object object) {
+        Log.d("EntriesWithSeparator", "remove() called with: " + "object = [" + object + "]" + " " + ((Entry) object).getValue());
+        boolean ret = super.remove(object);
+        if (ret) entries.remove(object);
+        makeList();
+
+        return ret;
+    }
+
+    private Money calcEntryListTotal(List<Entry> entries) {
+        Money value = Money.zero(Entry.CU);
 
         for (Entry e : entries) {
-            value += e.getValue();
+            value = value.plus(e.getValue());
         }
 
         return value;

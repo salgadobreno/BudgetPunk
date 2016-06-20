@@ -29,7 +29,7 @@ public class Category {
     private static final List<Category> CATEGORIES = new ArrayList<>();
     static {
         Collections.addAll(
-                CATEGORIES,
+                CATEGORIES, //ignore
                 FOOD,
                 GROCERIES, CIGS,
                 CLOTHES, TRANSPORT,

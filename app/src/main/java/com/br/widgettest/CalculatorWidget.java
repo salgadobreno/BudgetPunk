@@ -11,9 +11,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
+import com.aop.annotations.Trace;
 import com.br.widgettest.core.Category;
 import com.br.widgettest.core.DailyEntry;
 import com.br.widgettest.core.ILedger;
+import com.br.widgettest.core.dao.CategoryDao;
+import com.br.widgettest.core.dao.EntryDao;
 import com.br.widgettest.core.exceptions.NotImplementedException;
 import com.br.widgettest.core.ledger.Ledger;
 import com.br.widgettest.ui.extensions.CyclableList;
@@ -29,6 +32,7 @@ import org.javia.arity.SyntaxException;
 /**
  * Created by Breno on 11/30/2015.
  */
+@Trace
 public class CalculatorWidget extends AppWidgetProvider {
     public final static String PREFERENCE_WIDGET_PREAMBLE = "com.android.calculator2.CALC_WIDGET_VALUE_";
     public static final String DIGIT_0 = "com.android.calculator2.0";
@@ -69,7 +73,7 @@ public class CalculatorWidget extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        ledger = new Ledger(context);
+        ledger = new Ledger(new EntryDao(context), new CategoryDao(context));
 
         UI ui = new UI(context, new RemoteViews(context.getPackageName(), R.layout.main_widget));
 
@@ -328,6 +332,7 @@ public class CalculatorWidget extends AppWidgetProvider {
         intent.setAction(DOT);
         remoteViews.setOnClickPendingIntent(R.id.dot, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 10, intent, 0));
 
+//        Intent infoIntent = new Intent(context, InfoDisplayActivity2.class);
         Intent infoIntent = new Intent(context, InfoDisplayActivity.class);
         infoIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent launchInfoPendingIntent = PendingIntent.getActivity(context, 0, infoIntent, PendingIntent.FLAG_UPDATE_CURRENT);

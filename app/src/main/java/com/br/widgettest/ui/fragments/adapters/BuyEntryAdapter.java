@@ -67,13 +67,13 @@ public class BuyEntryAdapter extends ArrayAdapter<Object> {
                 entryName.setText(entry.getName());
                 entryVal.setText(new CurrencyFormattedText(entry.getValue()));
                 entryDateInfo.setText(entry.getPeriod());
-                entryModifier.setText(new CurrencyFormattedText(entry.getModifier()));
+                entryModifier.setText(new CurrencyFormattedText(entry.getModifier()) + "/d");
 
                 break;
             case 2: //SUMMARY
                 Double modifier = (Double) fixedEntriesWithSeparatorAndMofifierList.get(position);
 
-                TextView modifierView = (TextView) convertView.findViewById(R.id.fixed_entries_summary_additive);
+                TextView modifierView = (TextView) convertView.findViewById(R.id.buy_entry_modifier);
 
                 modifierView.setText("Modifier: " + new CurrencyFormattedText(modifier));
                 break;

@@ -12,6 +12,7 @@ import java.util.List;
 /**
  * Created by Breno on 4/8/2016.
  */
+//TODO: BUY ENTRIES
 public class FixedEntriesWithSeparatorAndMofifierList extends ArrayList<Object> {
     public enum EntryViewType {
         DATE_SEPARATOR(0), ENTRY(1), MODIFIER_SUMMARY(2);
@@ -38,7 +39,7 @@ public class FixedEntriesWithSeparatorAndMofifierList extends ArrayList<Object> 
             for (Entry e : entries) {
                 add(e);
             }
-            Double modifier = ledger.calcMonthModifier(date);
+            Double modifier = ledger.calcMonthModifier(date).getAmount().doubleValue();
 
             add(modifier);
         }

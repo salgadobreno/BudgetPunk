@@ -36,6 +36,8 @@ public abstract class AbstractDao<T> implements Dao<T> {
         if (list.contains(t)) {
             list.remove(t);
             db.persist(getEntity(), list);
+        } else {
+            throw new RuntimeException("not found");
         }
     }
 

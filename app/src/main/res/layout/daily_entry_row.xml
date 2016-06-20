@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/daily_entry_row"
     style="@style/Base.TextAppearance.AppCompat.Headline">
     <TextView
         android:layout_width="wrap_content"
@@ -9,6 +10,8 @@
         android:id="@+id/daily_entry_date"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
         android:layout_weight="1"
+        android:focusable="false"
+        android:clickable="false"
         android:text="${date}"/>
     <com.br.widgettest.ui.extensions.CategoryTextView
         android:layout_width="wrap_content"
@@ -16,6 +19,8 @@
         android:id="@+id/daily_entry_cat"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
         android:layout_weight="2"
+        android:focusable="false"
+        android:clickable="false"
         android:text="${category}"/>
     <com.br.widgettest.ui.extensions.CurrencyTextView
         android:layout_width="wrap_content"
@@ -23,7 +28,16 @@
         android:id="@+id/daily_entry_val"
         android:layout_weight="1"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:focusable="false"
+        android:clickable="false"
         android:text="${value}"/>
+    <Button
+        android:layout_width="35dp"
+        android:layout_height="wrap_content"
+        android:text="x"
+        android:focusable="false"
+        android:clickable="false"
+        android:id="@+id/daily_entry_remove" />
     <!--<Button-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="match_parent"-->

@@ -1,5 +1,7 @@
 package com.br.widgettest.ui.extensions;
 
+import org.joda.money.Money;
+
 import java.text.NumberFormat;
 
 /**
@@ -10,6 +12,10 @@ public class CurrencyFormattedText implements CharSequence {
 
     public CurrencyFormattedText(Double formatted) {
         this.formatted = NumberFormat.getCurrencyInstance().format(formatted);
+    }
+
+    public CurrencyFormattedText(Money formatted) {
+        this.formatted = NumberFormat.getCurrencyInstance().format(formatted.getAmount().doubleValue());
     }
 
     @Override

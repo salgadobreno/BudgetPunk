@@ -109,5 +109,9 @@
     <string name="category">category</string>
     <string name="title_activity_info">InfoActivity</string>
     <string name="title_activity_info_display">InfoDisplayActivity</string>
+    <string name="title_activity_info_display2">InfoDisplayActivity2</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_add_entry">AddEntryActivity</string>
 
 </resources>

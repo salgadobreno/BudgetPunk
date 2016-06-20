@@ -1,22 +1,26 @@
 package com.br.widgettest.core;
 
+import org.joda.money.CurrencyUnit;
 import org.joda.money.Money;
 
+import java.io.Serializable;
+import java.math.RoundingMode;
 import java.util.Date;
 
 /**
  * Created by Breno on 1/8/2016.
  */
-public abstract class Entry {
+public abstract class Entry implements Serializable { //TODO: keep?
     public enum EntryType {
         DAILY,
         FIXED,
         BOUGHT
     }
 
+    public static final CurrencyUnit CU = CurrencyUnit.USD;
+
     private String name;
-    private Double value;
-    private Money money;
+    private Money value;
     private Date startDate;
     private Date endDate;
     private Category category;
@@ -24,7 +28,7 @@ public abstract class Entry {
 
     public Entry(String name, Double value, Date startDate, Date endDate, Category category, EntryType entryType) {
         this.name = name;
-        this.value = value;
+        this.value = Money.of(CU, value, RoundingMode.HALF_EVEN);
         this.startDate = startDate;
         this.endDate = endDate;
         this.category = category;
@@ -35,7 +39,7 @@ public abstract class Entry {
         return name;
     }
 
-    public Double getValue() {
+    public Money getValue() {
         return value;
     }
 

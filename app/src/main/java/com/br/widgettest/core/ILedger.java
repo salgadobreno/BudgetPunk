@@ -1,5 +1,7 @@
 package com.br.widgettest.core;
 
+import org.joda.money.Money;
+
 import java.util.Date;
 import java.util.List;
 
@@ -8,11 +10,13 @@ import java.util.List;
  */
 public interface ILedger {
 
-    double calcDailyAvailable(Date date);
+    Money calcAvailableFromFixed();
 
-    double calcMonthModifier(Date date);
+    Money calcDailyAvailable(Date date);
 
-    List<Entry> getEntries(Entry.EntryType entryType);
+    Money calcMonthModifier(Date date);
+
+    List<? extends Entry> getEntries(Entry.EntryType entryType);
 
     void add(Entry entry);
 
