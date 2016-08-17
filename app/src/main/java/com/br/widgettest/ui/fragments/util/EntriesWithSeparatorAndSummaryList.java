@@ -6,6 +6,9 @@ import com.br.widgettest.core.Entry;
 import com.br.widgettest.core.ledger.decorators.EntryByDateMap;
 
 import org.joda.money.Money;
+import org.joda.time.Days;
+import org.joda.time.Instant;
+import org.joda.time.LocalDate;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,20 +52,36 @@ public class EntriesWithSeparatorAndSummaryList extends ArrayList<Object> {
         List<Date> inverseSortedDates = new ArrayList<>(map.keySet());
         Collections.sort(inverseSortedDates);
 
+        // add missing between dates
+        Date firstDate = inverseSortedDates.get(0);
+        Date lastDate = inverseSortedDates.get(inverseSortedDates.size() - 1);
+        int days = Days.daysBetween(new Instant(firstDate), new Instant(lastDate)).getDays();
+
+        DailyDate control = new DailyDate(firstDate.getTime());
+        for (int i = 0; i < days; i++) {
+            if (!inverseSortedDates.contains(control)) inverseSortedDates.add(control);
+            control = new DailyDate(new LocalDate(control).plusDays(1).toDate().getTime());
+        }
+        Collections.sort(inverseSortedDates);
+
         for (Date date : inverseSortedDates) {
             add(date);
             List<Entry> entries = map.get(date);
+            if (entries == null) entries = Collections.emptyList(); // fuck null
+
             for (Entry e : entries) {
                 add(e);
             }
             Double[] doubles = new Double[2]; // total, balance
-            doubles[0] = calcEntryListTotal(entries).getAmount().doubleValue();
+            doubles[0] = entries.isEmpty() ? -dailyAvailable : calcEntryListTotal(entries).getAmount().doubleValue(); // empty day uses daily value
 
-            balance += dailyAvailable + calcEntryListTotal(entries).getAmount().doubleValue();
+            balance += dailyAvailable + doubles[0];//calcEntryListTotal(entries).getAmount().doubleValue();
             doubles[1] = balance;
 
             add(doubles);
         }
+
+
     }
 
     public EntryViewType getEntryViewType(int position) {

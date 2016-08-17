@@ -1,8 +1,9 @@
 package com.br.widgettest.core.ledger.decorators;
 
 import com.br.widgettest.core.Entry;
+import com.br.widgettest.ui.fragments.util.DailyDate;
+import com.br.widgettest.ui.fragments.util.MonthlyDate;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -41,52 +42,3 @@ public class EntryByDateMap extends HashMap<Date, List<Entry>> {
     }
 }
 
-/**
- * Data que retorna 0 na comparação quando a outra data pertence ao mesmo dia/mês/ano
- */
-class DailyDate extends Date {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-
-    public DailyDate(long milliseconds) {
-        super(milliseconds);
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null) return false;
-
-        return object instanceof Date && this.hashCode() == object.hashCode();
-
-    }
-
-    @Override
-    public int hashCode() {
-        return sdf.format(this).hashCode();
-    }
-}
-
-/**
- * Data que retorna 0 na comparação quando a outra data pertence ao mesmo mês/ano
- */
-class MonthlyDate extends Date {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
-
-    public MonthlyDate(long milliseconds) {
-        super(milliseconds);
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (object == null) return false;
-
-        return object instanceof Date && this.hashCode() == object.hashCode();
-
-    }
-
-    @Override
-    public int hashCode() {
-        return sdf.format(this).hashCode();
-    }
-}

@@ -2,17 +2,17 @@ package com.br.widgettest.ui.fragments.adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.br.widgettest.AddEntryActivity;
-import com.br.widgettest.InfoDisplayActivity;
 import com.br.widgettest.R;
 import com.br.widgettest.core.Entry;
 import com.br.widgettest.core.ILedger;
@@ -21,7 +21,6 @@ import com.br.widgettest.core.dao.EntryDao;
 import com.br.widgettest.core.ledger.Ledger;
 import com.br.widgettest.ui.extensions.CategoryTextView;
 import com.br.widgettest.ui.extensions.CurrencyFormattedText;
-import com.br.widgettest.ui.fragments.NewEntryFragment;
 import com.br.widgettest.ui.fragments.util.EntriesWithSeparatorAndSummaryList;
 
 import java.text.SimpleDateFormat;
@@ -30,9 +29,10 @@ import java.util.Date;
 /**
  * Created by Breno on 1/14/2016.
  */
-public class DailyEntryAdapter extends ArrayAdapter<Object> {
+public class DailyEntryAdapter extends ArrayAdapter<Object> implements DailyEntryUI {
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM");
     private EntriesWithSeparatorAndSummaryList entriesWithSeparatorAndSummaryList;
+    private ILedger ledger;
 
     public DailyEntryAdapter(Context context, EntriesWithSeparatorAndSummaryList entriesWithSeparatorAndSummaryList) {
         super(context, R.layout.daily_entry_row, entriesWithSeparatorAndSummaryList);
@@ -75,46 +75,34 @@ public class DailyEntryAdapter extends ArrayAdapter<Object> {
                 TextView entryDate = (TextView)convertView.findViewById(R.id.daily_entry_date);
                 TextView entryVal = (TextView)convertView.findViewById(R.id.daily_entry_val);
                 CategoryTextView entryCat = (CategoryTextView)convertView.findViewById(R.id.daily_entry_cat);
-                Button rmButton = (Button) convertView.findViewById(R.id.daily_entry_remove);
+                Button popupButton = (Button) convertView.findViewById(R.id.daily_entry_popup);
 
                 entryDate.setText(simpleDateFormat.format(entry.getStartDate()));
                 entryCat.setCategory(entry.getCategory());
                 entryVal.setText(new CurrencyFormattedText(entry.getValue()));
-                rmButton.setOnClickListener(new View.OnClickListener() {
+                popupButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        ILedger ledger = new Ledger(new EntryDao(getContext()), new CategoryDao(getContext()));
-                        entriesWithSeparatorAndSummaryList.remove(entry);
-
-                        ledger.rm(entry);
-                        notifyDataSetChanged();
+                        PopupMenu popupMenu = new PopupMenu(getContext(), v);
+                        popupMenu.getMenuInflater().inflate(R.menu.daily_popup_menu, popupMenu.getMenu());
+                        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+                                switch (item.getItemId()) {
+                                    case R.id.dmenu_edit:
+                                        return edit(entry);
+                                    case R.id.dmenu_delete:
+                                        return delete(entry);
+                                    case R.id.dmenu_monthly:
+                                        return turnMonthly(entry);
+                                    default:
+                                        throw new IllegalArgumentException("unexpected param");
+                                }
+                            }
+                        });
+                        popupMenu.show();
                     }
                 });
-
-                entryRow.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        ILedger ledger = new Ledger(new EntryDao(getContext()), new CategoryDao(getContext()));
-                        Log.d("DEA", "onClick: clicked");
-                        Intent intent = new Intent(getContext(), AddEntryActivity.class);
-                        intent.putExtra("action", "edit"); //TODO
-                        intent.putExtra("entryType", entry.getEntryType().name());
-                        intent.putExtra("entryPos", ledger.getEntries(entry.getEntryType()).indexOf(entry)); //TODO
-                        //TODO: id
-                        getContext().startActivity(intent);
-                    }
-                });
-
-//                entryRow.setOnLongClickListener(new View.OnLongClickListener() {
-//                    @Override
-//                    public boolean onLongClick(View v) {
-//                        Log.d("DEA", "onLongClick() called with: " + "v = [" + v + "]");
-//                        Intent intent = new Intent(getContext(), InfoDisplayActivity.class);
-//                        intent.putExtra("entry", (Serializable) entry);
-//                        getContext().startActivity(intent);
-//                        return true;
-//                    }
-//                });
 
                 break;
             case 2: //SUMMARY
@@ -139,5 +127,39 @@ public class DailyEntryAdapter extends ArrayAdapter<Object> {
 
     public void setEntriesWithSeparatorAndSummaryList(EntriesWithSeparatorAndSummaryList entriesWithSeparatorAndSummaryList) {
         this.entriesWithSeparatorAndSummaryList = entriesWithSeparatorAndSummaryList;
+    }
+
+    @Override
+    public boolean delete(Entry entry) {
+        entriesWithSeparatorAndSummaryList.remove(entry);
+
+        getLedger().rm(entry);
+        notifyDataSetChanged();
+        return true;
+    }
+
+    @Override
+    public boolean edit(Entry entry) {
+        Intent intent = new Intent(getContext(), AddEntryActivity.class);
+        intent.putExtra("action", "edit"); //TODO
+        intent.putExtra("entryType", entry.getEntryType().name());
+        intent.putExtra("entryPos", getLedger().getEntries(entry.getEntryType()).indexOf(entry)); //TODO
+        //TODO: id
+        getContext().startActivity(intent);
+        return true;
+    }
+
+    @Override
+    public boolean turnMonthly(Entry entry) {
+        return false;
+    }
+
+    private ILedger getLedger() {
+        // TODO: make factory?
+        if (ledger == null) {
+            ledger = new Ledger(new EntryDao(getContext()), new CategoryDao(getContext()));
+        }
+
+        return ledger;
     }
 }

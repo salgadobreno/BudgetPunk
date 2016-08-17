@@ -34,10 +34,10 @@
     <Button
         android:layout_width="35dp"
         android:layout_height="wrap_content"
-        android:text="x"
         android:focusable="false"
         android:clickable="false"
-        android:id="@+id/daily_entry_remove" />
+        android:text="&#8942;"
+        android:id="@+id/daily_entry_popup" />
     <!--<Button-->
         <!--android:layout_width="wrap_content"-->
         <!--android:layout_height="match_parent"-->
