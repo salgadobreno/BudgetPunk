@@ -45,6 +45,9 @@ public class EntriesWithSeparatorAndSummaryList extends ArrayList<Object> {
 
     private void makeList() {
         clear();
+
+        if (entries.isEmpty()) return;
+
         EntryByDateMap map = new EntryByDateMap(entries, EntryByDateMap.Granularity.DAILY); //TODO: WARNING
 
         Double balance = 0d;
@@ -52,7 +55,7 @@ public class EntriesWithSeparatorAndSummaryList extends ArrayList<Object> {
         List<Date> inverseSortedDates = new ArrayList<>(map.keySet());
         Collections.sort(inverseSortedDates);
 
-        // add missing between dates
+        // save missing between dates
         Date firstDate = inverseSortedDates.get(0);
         Date lastDate = inverseSortedDates.get(inverseSortedDates.size() - 1);
         int days = Days.daysBetween(new Instant(firstDate), new Instant(lastDate)).getDays();

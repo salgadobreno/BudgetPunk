@@ -13,7 +13,6 @@ import com.br.widgettest.core.dao.EntryDao;
 
 import org.joda.money.Money;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -38,6 +37,9 @@ public class Ledger implements ILedger {
         dailyEntries = new DailyEntries();
         fixedEntries = new FixedEntries();
         buyEntries   = new BuyEntries();
+//        dailyEntries = new DailyEntries(new EntryEntityList<DailyEntry>(DailyEntryEntity.listAll(DailyEntryEntity.class)).get());
+//        fixedEntries = new FixedEntries(new EntryEntityList<FixedEntry>(FixedEntryEntity.listAll(FixedEntryEntity.class)).get());
+//        buyEntries   = new BuyEntries(new EntryEntityList<BuyEntry>(BuyEntryEntity.listAll(BuyEntryEntity.class)).get());
 
         //init categories
         if (categoryDao.list().isEmpty()) {
@@ -61,17 +63,21 @@ public class Ledger implements ILedger {
     public void rm(Entry entry) {
         switch (entry.getEntryType()) {
             case BOUGHT:
+//                BuyEntry.delete(entry);
                 buyEntries.remove(entry);
                 break;
             case DAILY:
+//                DailyEntry.delete(entry);
                 dailyEntries.remove(entry);
                 break;
             case FIXED:
+//                FixedEntry.delete(entry);
                 fixedEntries.remove(entry);
                 break;
         }
         entryDao.remove(entry);
-        persist();
+        //TODO
+//        persist();
     }
 
     @Override
@@ -109,21 +115,33 @@ public class Ledger implements ILedger {
         Entry.EntryType entryType = entry.getEntryType();
 
         switch (entryType) {
-            case DAILY: dailyEntries.add((DailyEntry) entry); break;
-            case FIXED: fixedEntries.add((FixedEntry) entry); break;
-            case BOUGHT: buyEntries.add((BuyEntry) entry); break;
+            case DAILY:
+//                DailyEntry.save(entry);
+                entryDao.save(entry); // FIXME: 8/28/2016
+                dailyEntries.add((DailyEntry) entry);
+                break;
+            case FIXED:
+//                FixedEntry.save(entry);
+                entryDao.save(entry); // FIXME: 8/28/2016
+                fixedEntries.add((FixedEntry) entry);
+                break;
+            case BOUGHT:
+//                BuyEntry.save(entry);
+                entryDao.save(entry); // FIXME: 8/28/2016
+                buyEntries.add((BuyEntry) entry);
+                break;
             default: throw new IllegalArgumentException(String.format("I don't know what %s is", entryType));
         }
 
-        if (persist) persist();
+//        if (persist) persist();
     }
 
-    private void persist() {
-        List<Entry> entries = new ArrayList<>();
-        entries.addAll(dailyEntries);
-        entries.addAll(fixedEntries);
-        entries.addAll(buyEntries);
-        entryDao.store(entries);
-        Log.d(TAG, "persist");
-    }
+//    private void persist() {
+//        List<Entry> entries = new ArrayList<>();
+//        entries.addAll(dailyEntries);
+//        entries.addAll(fixedEntries);
+//        entries.addAll(buyEntries);
+//        entryDao.store(entries);
+//        Log.d(TAG, "persist");
+//    }
 }

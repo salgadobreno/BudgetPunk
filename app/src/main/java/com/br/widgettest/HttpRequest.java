@@ -324,7 +324,7 @@ public class HttpRequest {
 
   private static StringBuilder addParamPrefix(final String baseUrl,
       final StringBuilder result) {
-    // Add '?' if missing and add '&' if params already exist in base url
+    // Add '?' if missing and save '&' if params already exist in base url
     final int queryStart = baseUrl.indexOf('?');
     final int lastChar = result.length() - 1;
     if (queryStart == -1)

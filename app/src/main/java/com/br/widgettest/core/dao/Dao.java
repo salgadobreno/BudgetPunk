@@ -6,11 +6,11 @@ import java.util.List;
  * Created by Breno on 2/9/2016.
  */
 public interface Dao<T> {
-    T find(String id);
+    T find(Long id);
 
     List<T> list();
 
-    void add(T t);
+    void save(T t);
 
     void remove(T t);
 

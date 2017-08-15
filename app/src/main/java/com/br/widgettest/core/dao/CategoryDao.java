@@ -3,6 +3,7 @@ package com.br.widgettest.core.dao;
 import android.content.Context;
 
 import com.br.widgettest.core.Category;
+import com.br.widgettest.core.exceptions.NotImplementedException;
 
 import java.util.List;
 
@@ -19,12 +20,13 @@ public class CategoryDao extends AbstractDao<Category> {
     }
 
     @Override
-    public Category find(String id) {
-        for (Object c : db.get(ENTITY)) {
-            Category category = (Category) c;
-            if (category.getName().equals(id)) return category;
-        }
-        return nullCategory;
+    public Category find(Long id) {
+        throw new NotImplementedException();
+//        for (Object c : db.get(ENTITY)) {
+//            Category category = (Category) c;
+//            if (category.getName().equals(id)) return category;
+//        }
+//        return nullCategory;
     }
 
     @Override

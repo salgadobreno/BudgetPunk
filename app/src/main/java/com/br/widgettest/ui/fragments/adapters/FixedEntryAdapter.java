@@ -63,9 +63,9 @@ public class FixedEntryAdapter extends ArrayAdapter<Entry> implements FixedEntry
                     public boolean onMenuItemClick(MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.fmenu_edit:
-                                edit(entry);
+                                return edit(entry);
                             case R.id.fmenu_delete:
-                                delete(entry);
+                                return delete(entry);
                             default:
                                 throw new IllegalArgumentException("unexpected param");
                         }
@@ -82,7 +82,7 @@ public class FixedEntryAdapter extends ArrayAdapter<Entry> implements FixedEntry
     public boolean delete(Entry entry) {
         entryList.remove(entry);
 
-        ledger.rm(entry);
+        getLedger().rm(entry);
         notifyDataSetChanged();
         return true;
     }
@@ -90,10 +90,8 @@ public class FixedEntryAdapter extends ArrayAdapter<Entry> implements FixedEntry
     @Override
     public boolean edit(Entry entry) {
         Intent intent = new Intent(getContext(), AddEntryActivity.class);
-        intent.putExtra("action", "edit"); //TODO
+        intent.putExtra("id", entry.toEntity().getId());
         intent.putExtra("entryType", entry.getEntryType().name());
-        intent.putExtra("entryPos", getLedger().getEntries(entry.getEntryType()).indexOf(entry)); //TODO
-        //TODO: id
         getContext().startActivity(intent);
         return true;
     }
@@ -101,7 +99,7 @@ public class FixedEntryAdapter extends ArrayAdapter<Entry> implements FixedEntry
     private ILedger getLedger() {
         //TODO: factory?
         if (ledger == null) {
-            ledger = new Ledger(new EntryDao(getContext()), new CategoryDao(getContext()));
+            ledger = new Ledger(new EntryDao(), new CategoryDao(getContext()));
         }
         return ledger;
     }

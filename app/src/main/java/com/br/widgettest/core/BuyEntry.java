@@ -1,12 +1,11 @@
 package com.br.widgettest.core;
 
-import com.aop.annotations.Trace;
+import com.orm.SugarRecord;
 
 import org.joda.money.Money;
 import org.joda.time.DateTimeFieldType;
-import org.joda.time.Days;
 import org.joda.time.Instant;
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalDate;
 
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
@@ -32,6 +31,17 @@ public class BuyEntry extends Entry {
             new Instant(endDate.getTime()).get(DateTimeFieldType.dayOfMonth()) != 1) {
             throw new IllegalArgumentException("Only full months are allowed for BuyEntries");
         }
+    }
+
+    public static BuyEntry criarPorParcela(String name, int parcela, int totalParcelas, double valorParcela, Date referenceDate, Category category) {
+        //TODO: mudar pra fabrica/forma descritiva de criação?
+        double totalValue = totalParcelas * valorParcela;
+        int monthsBack = parcela - 1;
+        int monthsForward = totalParcelas - parcela;
+        Date startDate = new LocalDate(referenceDate.getTime()).minusMonths(monthsBack).withDayOfMonth(1).toDate();
+        Date endDate = new LocalDate(referenceDate.getTime()).plusMonths(monthsForward + 1).withDayOfMonth(1).toDate();
+
+        return new BuyEntry(name, totalValue, startDate, endDate, category);
     }
 
     @Override

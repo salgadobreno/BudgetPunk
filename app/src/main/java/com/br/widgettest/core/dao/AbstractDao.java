@@ -22,7 +22,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
     }
 
     @Override
-    public void add(T t) {
+    public void save(T t) {
         List<T> list = db.get(getEntity());
         if (!list.contains(t)) {
             list.add(t);

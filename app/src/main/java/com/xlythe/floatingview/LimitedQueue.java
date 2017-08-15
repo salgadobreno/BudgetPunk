@@ -11,8 +11,8 @@
 //    }
 //
 //    @Override
-//    public boolean add(E o) {
-//        super.add(o);
+//    public boolean save(E o) {
+//        super.save(o);
 //        while(size() > limit) {
 //            super.remove();
 //        }

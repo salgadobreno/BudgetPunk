@@ -11,18 +11,16 @@ import com.br.widgettest.core.dao.CategoryDao;
 import com.br.widgettest.core.dao.EntryDao;
 
 import org.joda.money.Money;
-import org.joda.time.Days;
 import org.joda.time.Instant;
 import org.joda.time.LocalDate;
-import org.joda.time.LocalDateTime;
-import org.mockito.Matchers;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * Created by Breno on 4/16/2016.
@@ -78,6 +76,10 @@ public class LedgerTest extends ApplicationTest {
         assertEquals(Money.of(Entry.CU, 1), ledger.calcMonthModifier(Instant.parse("2016-04-30").toDate()));
         assertEquals(Money.of(Entry.CU, 2), ledger.calcMonthModifier(Instant.parse("2016-05-02").toDate()));
         assertEquals(Money.of(Entry.CU, 2), ledger.calcMonthModifier(Instant.parse("2016-05-01").toDate()));
+    }
+
+    public void testTurnedOffBuysDontAffectModifier() {
+        fail();
     }
 
     public void testRemove() throws Exception {

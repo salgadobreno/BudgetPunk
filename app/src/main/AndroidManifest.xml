@@ -10,7 +10,14 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:name="com.orm.SugarApp">
+
+        <meta-data android:name="DATABASE" android:value="x.db"/>
+        <meta-data android:name="VERSION" android:value="3"/>
+        <meta-data android:name="QUERY_LOG" android:value="true"/>
+        <!--<meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="br.widgettest.core"/>-->
+
         <receiver android:name=".CalculatorWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -31,10 +38,12 @@
         <activity
             android:name=".AddEntryActivity"
             android:label="@string/title_activity_add_entry"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"/>
     </application>
 
-</manifest><!--
+</manifest>
+
+    <!--
     <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 package="com.android.calculator2"

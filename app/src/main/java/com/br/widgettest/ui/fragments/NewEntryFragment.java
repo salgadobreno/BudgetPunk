@@ -35,7 +35,7 @@ public class NewEntryFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        final Ledger ledger = new Ledger(new EntryDao(getContext()), new CategoryDao(getContext()));
+        final Ledger ledger = new Ledger(new EntryDao(), new CategoryDao(getContext()));
         View view = inflater.inflate(R.layout.generic_add_entry, null);
 
         final TextView nameLabel, valueLabel, startDateLabel, endDateLabel, categoryLabel;

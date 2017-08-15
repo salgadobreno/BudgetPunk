@@ -23,7 +23,7 @@ public class BuyEntryTest extends TestCase {
     }
 
     public void testGetPeriod() throws Exception {
-        assertEquals("jan/2010 - fev/2010", buyEntry.getPeriod());
+        assertEquals("jan/2016 - fev/2016", buyEntry.getPeriod());
     }
 
     public void testStartMustBeGreaterThanEnd() throws Exception {
@@ -45,5 +45,49 @@ public class BuyEntryTest extends TestCase {
             BuyEntry buyEntry = new BuyEntry("teste", -200d, Instant.parse("2010-01-01").toDate(), Instant.parse("2010-02-05").toDate(), null);
             fail();
         } catch (IllegalArgumentException ignored) {}
+    }
+
+    public void testCreateFromParcelaNumAndParcelaValue() throws Exception {
+        int parcela = 2;
+        int totalParcelas = 3;
+        double valorParcela = -100.00;
+
+        // refDate 2016-02-1
+        // startDate é 2016-01-01
+        // endDate é 2016-03-31 + 1 = 2016-04-01
+        // value é -300.00
+        // modifier é (31+29+31)/-300 = 3.30
+        BuyEntry buyEntry = BuyEntry.criarPorParcela("", parcela, totalParcelas, valorParcela, Instant.parse("2016-02-01").toDate(), Category.NULL);
+
+        assertEquals(Instant.parse("2016-01-01").toDate(), buyEntry.getStartDate());
+        assertEquals(Instant.parse("2016-04-01").toDate(), buyEntry.getEndDate());
+        assertEquals(-300.00, buyEntry.getValue().getAmount().doubleValue());
+        assertEquals(-3.30, buyEntry.getModifier().getAmount().doubleValue());
+
+        // mesmo valor na parcela 1, refDate 2016-01-01
+        // startDate é 2016-01-01
+        // endDate é 2016-03-31 + 1 = 2016-04-01
+        // value é -300.00
+        // modifier é 3.30
+        BuyEntry buyEntry2 = BuyEntry.criarPorParcela("", 1, totalParcelas, valorParcela, Instant.parse("2016-01-01").toDate(), Category.NULL);
+
+        assertEquals(Instant.parse("2016-01-01").toDate(), buyEntry2.getStartDate());
+        assertEquals(Instant.parse("2016-04-01").toDate(), buyEntry2.getEndDate());
+        assertEquals(-300.00, buyEntry2.getValue().getAmount().doubleValue());
+        assertEquals(-3.30, buyEntry2.getModifier().getAmount().doubleValue());
+
+        // 5 parcelas
+        // 4 parcela atual
+        // valor 500
+        // modifier -100.00
+        // refDate 2016-04-05
+        // startDate 2016-01-1
+        // endDate 2016-07-01
+        BuyEntry buyEntry3 = BuyEntry.criarPorParcela("", 4, 5, -100.00, Instant.parse("2016-04-01").toDate(), Category.NULL);
+
+        assertEquals(Instant.parse("2016-01-01").toDate(), buyEntry3.getStartDate());
+        assertEquals(Instant.parse("2016-06-01").toDate(), buyEntry3.getEndDate());
+        assertEquals(-500.00, buyEntry3.getValue().getAmount().doubleValue());
+        assertEquals(-3.29, buyEntry3.getModifier().getAmount().doubleValue());
     }
 }

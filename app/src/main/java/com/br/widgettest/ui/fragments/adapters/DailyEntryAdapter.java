@@ -18,6 +18,7 @@ import com.br.widgettest.core.Entry;
 import com.br.widgettest.core.ILedger;
 import com.br.widgettest.core.dao.CategoryDao;
 import com.br.widgettest.core.dao.EntryDao;
+import com.br.widgettest.core.entity.DailyEntryEntity;
 import com.br.widgettest.core.ledger.Ledger;
 import com.br.widgettest.ui.extensions.CategoryTextView;
 import com.br.widgettest.ui.extensions.CurrencyFormattedText;
@@ -141,10 +142,8 @@ public class DailyEntryAdapter extends ArrayAdapter<Object> implements DailyEntr
     @Override
     public boolean edit(Entry entry) {
         Intent intent = new Intent(getContext(), AddEntryActivity.class);
-        intent.putExtra("action", "edit"); //TODO
+        intent.putExtra("id", entry.toEntity().getId());
         intent.putExtra("entryType", entry.getEntryType().name());
-        intent.putExtra("entryPos", getLedger().getEntries(entry.getEntryType()).indexOf(entry)); //TODO
-        //TODO: id
         getContext().startActivity(intent);
         return true;
     }
@@ -157,7 +156,7 @@ public class DailyEntryAdapter extends ArrayAdapter<Object> implements DailyEntr
     private ILedger getLedger() {
         // TODO: make factory?
         if (ledger == null) {
-            ledger = new Ledger(new EntryDao(getContext()), new CategoryDao(getContext()));
+            ledger = new Ledger(new EntryDao(), new CategoryDao(getContext()));
         }
 
         return ledger;

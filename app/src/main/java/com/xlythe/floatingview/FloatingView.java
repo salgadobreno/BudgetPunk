@@ -432,8 +432,8 @@
 //            float deltaX = event.getRawX() - mPrevDragX;
 //            float deltaY = event.getRawY() - mPrevDragY;
 //
-//            mDeltaXArray.add(deltaX);
-//            mDeltaYArray.add(deltaY);
+//            mDeltaXArray.save(deltaX);
+//            mDeltaYArray.save(deltaY);
 //
 //            mPrevDragX = event.getRawX();
 //            mPrevDragY = event.getRawY();

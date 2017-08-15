@@ -73,7 +73,7 @@ public class CalculatorWidget extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        ledger = new Ledger(new EntryDao(context), new CategoryDao(context));
+        ledger = new Ledger(new EntryDao(), new CategoryDao(context));
 
         UI ui = new UI(context, new RemoteViews(context.getPackageName(), R.layout.main_widget));
 
@@ -297,7 +297,7 @@ public class CalculatorWidget extends AppWidgetProvider {
         // So take the id and shift it over 5 bits (enough to store our 17
         // values)
         int shiftedAppWidgetId = appWidgetId << 5;
-        // And add our button values (0-16)
+        // And save our button values (0-16)
 
         intent.setAction(DIGIT_0);
         remoteViews.setOnClickPendingIntent(R.id.digit0, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 0, intent, 0));

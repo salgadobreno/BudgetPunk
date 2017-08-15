@@ -12,7 +12,6 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.br.widgettest.AddEntryActivity;
-import com.br.widgettest.InfoDisplayActivity;
 import com.br.widgettest.R;
 import com.br.widgettest.core.BuyEntry;
 import com.br.widgettest.core.Entry;
@@ -106,7 +105,6 @@ public class BuyEntryAdapter extends ArrayAdapter<Object> implements BuyEntryUI 
                     }
                 });
 
-
                 break;
             case 2: //SUMMARY
                 Double modifier = (Double) fixedEntriesWithSeparatorAndMofifierList.get(position);
@@ -131,16 +129,14 @@ public class BuyEntryAdapter extends ArrayAdapter<Object> implements BuyEntryUI 
 
         getLedger().rm(entry);
         notifyDataSetChanged();
-        return false;
+        return true;
     }
 
     @Override
     public boolean edit(Entry entry) {
         Intent intent = new Intent(getContext(), AddEntryActivity.class);
-        intent.putExtra("action", "edit"); //TODO
+        intent.putExtra("id", entry.toEntity().getId());
         intent.putExtra("entryType", entry.getEntryType().name());
-        intent.putExtra("entryPos", getLedger().getEntries(entry.getEntryType()).indexOf(entry)); //TODO
-        //TODO: id
         getContext().startActivity(intent);
         return true;
     }
@@ -152,7 +148,7 @@ public class BuyEntryAdapter extends ArrayAdapter<Object> implements BuyEntryUI 
 
     private ILedger getLedger() {
         if (ledger == null) {
-            ledger = new Ledger(new EntryDao(getContext()), new CategoryDao(getContext()));
+            ledger = new Ledger(new EntryDao(), new CategoryDao(getContext()));
         }
         return ledger;
     }
