@@ -116,24 +116,20 @@ public class Ledger implements ILedger {
 
         switch (entryType) {
             case DAILY:
-//                DailyEntry.save(entry);
-                entryDao.save(entry); // FIXME: 8/28/2016
                 dailyEntries.add((DailyEntry) entry);
                 break;
             case FIXED:
-//                FixedEntry.save(entry);
-                entryDao.save(entry); // FIXME: 8/28/2016
                 fixedEntries.add((FixedEntry) entry);
                 break;
             case BOUGHT:
-//                BuyEntry.save(entry);
-                entryDao.save(entry); // FIXME: 8/28/2016
                 buyEntries.add((BuyEntry) entry);
                 break;
             default: throw new IllegalArgumentException(String.format("I don't know what %s is", entryType));
         }
 
-//        if (persist) persist();
+        if (persist) {
+            entryDao.save(entry);
+        }
     }
 
 //    private void persist() {

@@ -14,7 +14,8 @@ public class EntryEntityToEntry {
     private Entry entry;
 
     public EntryEntityToEntry(EntryEntity entity) {
-        Category category = Category.getCategories().get(entity.getCategoryId());
+//        Category category = Category.getCategories().get(entity.getCategoryId());
+        Category category = Category.NULL;
 
         switch (entity.getEntryType()) {
             case DAILY:

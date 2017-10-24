@@ -22,8 +22,26 @@ public class BuyEntryTest extends TestCase {
         assertEquals(Money.of(CurrencyUnit.USD, -6.45d), buyEntry.getModifier());
     }
 
-    public void testGetPeriod() throws Exception {
+    public void testGetPeriod1Month() throws Exception {
+        assertEquals("jan/2016", buyEntry.getPeriod());
+    }
+
+    public void testGetPeriod2Months() throws Exception {
+        BuyEntry buyEntry = new BuyEntry("teste", -200d, Instant.parse("2016-01-01").toDate(), Instant.parse("2016-03-01").toDate(), null);
         assertEquals("jan/2016 - fev/2016", buyEntry.getPeriod());
+    }
+
+    public void testGetPeriod2MonthsFromParcela() throws Exception {
+        BuyEntry buyEntry = BuyEntry.criarPorParcela("teste", 1, 2, 30, Instant.parse("2016-01-01").toDate(), null);
+        assertEquals("jan/2016 - fev/2016", buyEntry.getPeriod());
+
+        BuyEntry buyEntry2 = BuyEntry.criarPorParcela("teste", 1, 2, 30, Instant.parse("2017-09-01").toDate(), null);
+        assertEquals("set/2017 - out/2017", buyEntry2.getPeriod());
+    }
+
+    public void testGetPeriod3Months() throws Exception {
+        BuyEntry buyEntry = new BuyEntry("teste", -200d, Instant.parse("2016-01-01").toDate(), Instant.parse("2016-04-01").toDate(), null);
+        assertEquals("jan/2016 - mar/2016", buyEntry.getPeriod());
     }
 
     public void testStartMustBeGreaterThanEnd() throws Exception {

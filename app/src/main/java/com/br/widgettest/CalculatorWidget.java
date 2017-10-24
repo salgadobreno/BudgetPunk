@@ -12,14 +12,16 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import com.aop.annotations.Trace;
+//import com.br.widgettest.core.Category;
 import com.br.widgettest.core.Category;
 import com.br.widgettest.core.DailyEntry;
 import com.br.widgettest.core.ILedger;
-import com.br.widgettest.core.dao.CategoryDao;
+//import com.br.widgettest.core.dao.CategoryDao;
 import com.br.widgettest.core.dao.EntryDao;
 import com.br.widgettest.core.exceptions.NotImplementedException;
-import com.br.widgettest.core.ledger.Ledger;
-import com.br.widgettest.ui.extensions.CyclableList;
+//import com.br.widgettest.core.ledger.Ledger;
+//import com.br.widgettest.ui.extensions.CyclableList;
+import com.br.widgettest.core.ledger.LightLedger;
 import com.xlythe.math.Base;
 import com.xlythe.math.Constants;
 import com.xlythe.math.EquationFormatter;
@@ -64,16 +66,17 @@ public class CalculatorWidget extends AppWidgetProvider {
 
     private boolean mClearText = false;
 
-    static CyclableList<Category> categories = new CyclableList<>(Category.getCategories());
+//    static CyclableList<Category> categories = new CyclableList<>(Category.getCategories());
 
-    static Category category;
+//    static Category category;
     static UI.InputMode inputMode;
 
     static ILedger ledger;
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        ledger = new Ledger(new EntryDao(), new CategoryDao(context));
+//        ledger = new Ledger(new EntryDao(), new CategoryDao(context));
+        ledger = new LightLedger(new EntryDao());
 
         UI ui = new UI(context, new RemoteViews(context.getPackageName(), R.layout.main_widget));
 
@@ -156,7 +159,8 @@ public class CalculatorWidget extends AppWidgetProvider {
             if (inputMode == UI.InputMode.EXPENSE) {
                 input = -input;
             }
-            DailyEntry entry = new DailyEntry(input, category);
+//            DailyEntry entry = new DailyEntry(input, category);
+            DailyEntry entry = new DailyEntry(input, Category.NULL);
             ledger.add(entry); //TODO: shitty
             value = "";
         } else if(intent.getAction().equals(MINUS)) {
@@ -195,12 +199,12 @@ public class CalculatorWidget extends AppWidgetProvider {
             value = "";
         } else if(intent.getAction().equals(DEL)) {
             if(value.length() > 0) value = value.substring(0, value.length() - 1);
-        } else if (intent.getAction().equals(CATEGORY)) {
-            category = categories.cycle(CyclableList.Direction.FORWARD);
-            ui.updateCategory(category);
-        } else if (intent.getAction().equals(CATEGORY_BACK)) {
-            category = categories.cycle(CyclableList.Direction.BACKWARD);
-            ui.updateCategory(category);
+//        } else if (intent.getAction().equals(CATEGORY)) {
+//            category = categories.cycle(CyclableList.Direction.FORWARD);
+//            ui.updateCategory(category);
+//        } else if (intent.getAction().equals(CATEGORY_BACK)) {
+//            category = categories.cycle(CyclableList.Direction.BACKWARD);
+//            ui.updateCategory(category);
         } else if (intent.getAction().equals(INCOME_BUTTON)) {
             inputMode = UI.InputMode.INCOME;
         } else if (intent.getAction().equals(EXPENSE_BUTTON)) {
@@ -270,8 +274,8 @@ public class CalculatorWidget extends AppWidgetProvider {
         remoteViews.setViewVisibility(R.id.clear, mClearText ? View.VISIBLE : View.GONE);
         setOnClickListeners(context, appWidgetId, remoteViews);
 
-        if (category == null) category = categories.get(0);
-        ui.updateCategory(category);
+//        if (category == null) category = categories.get(0);
+//        ui.updateCategory(category);
 
         if (inputMode == null) inputMode = UI.InputMode.EXPENSE;
         ui.setInputMode(inputMode);
@@ -358,11 +362,11 @@ public class CalculatorWidget extends AppWidgetProvider {
         intent.setAction(CLR);
         remoteViews.setOnClickPendingIntent(R.id.clear, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 17, intent, 0));
 
-        intent.setAction(CATEGORY);
-        remoteViews.setOnClickPendingIntent(R.id.toggle_category, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 18, intent, 0));
+//        intent.setAction(CATEGORY);
+//        remoteViews.setOnClickPendingIntent(R.id.toggle_category, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 18, intent, 0));
 
-        intent.setAction(CATEGORY_BACK);
-        remoteViews.setOnClickPendingIntent(R.id.toggle_category_side_button, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 19, intent, 0));
+//        intent.setAction(CATEGORY_BACK);
+//        remoteViews.setOnClickPendingIntent(R.id.toggle_category_side_button, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 19, intent, 0));
 
         intent.setAction(EXPENSE_BUTTON);
         remoteViews.setOnClickPendingIntent(R.id.expense_button, PendingIntent.getBroadcast(context, shiftedAppWidgetId + 20, intent, 0));
@@ -384,11 +388,11 @@ class UI {
         this.remoteViews = remoteViews;
     }
 
-    public void updateCategory(Category category) {
-        remoteViews.setInt(R.id.toggle_category, "setBackgroundColor", category.getColor());
-        remoteViews.setTextViewText(R.id.toggle_category, category.getName());
-        pushWidgetUpdate();
-    }
+//    public void updateCategory(Category category) {
+//        remoteViews.setInt(R.id.toggle_category, "setBackgroundColor", category.getColor());
+//        remoteViews.setTextViewText(R.id.toggle_category, category.getName());
+//        pushWidgetUpdate();
+//    }
 
     public void setInputMode(InputMode inputMode) {
         switch (inputMode) {

@@ -4,8 +4,11 @@ import com.orm.SugarRecord;
 
 import org.joda.money.Money;
 import org.joda.time.DateTimeFieldType;
+import org.joda.time.Days;
+import org.joda.time.Duration;
 import org.joda.time.Instant;
 import org.joda.time.LocalDate;
+import org.joda.time.Months;
 
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
@@ -51,8 +54,18 @@ public class BuyEntry extends Entry {
 
     public String getPeriod() {
         SimpleDateFormat sdf = new SimpleDateFormat("MMM/yyyy");
+        Instant start = new Instant(getStartDate().getTime());
+        Instant end = new Instant(getEndDate().getTime());
 
-        return sdf.format(getStartDate()) + " - " + sdf.format(getEndDate());
+        if (start.get(DateTimeFieldType.year()) == end.get(DateTimeFieldType.year())) {
+            if (start.get(DateTimeFieldType.monthOfYear()) - end.get(DateTimeFieldType.monthOfYear()) == -1) {
+                return sdf.format(getStartDate());
+            } else {
+                return sdf.format(getStartDate()) + " - " + sdf.format(new LocalDate(getEndDate().getTime()).minusDays(1).toDate());
+            }
+        } else {
+            return sdf.format(getStartDate()) + " - " + sdf.format(new LocalDate(getEndDate().getTime()).minusDays(1).toDate());
+        }
     }
 
     public Money getModifier() {

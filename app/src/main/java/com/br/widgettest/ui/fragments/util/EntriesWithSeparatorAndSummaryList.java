@@ -2,6 +2,7 @@ package com.br.widgettest.ui.fragments.util;
 
 import android.util.Log;
 
+import com.br.widgettest.core.DailyEntry;
 import com.br.widgettest.core.Entry;
 import com.br.widgettest.core.ledger.decorators.EntryByDateMap;
 
@@ -23,6 +24,8 @@ public class EntriesWithSeparatorAndSummaryList extends ArrayList<Object> {
     private List<Entry> entries;
 
     public enum EntryViewType {
+//        DATE_SEPARATOR(0), ENTRY(1), SUMMARY(2), DAILY_IN(3), DAILY_OUT(4);
+//        TODO: Make auto in/out have their own type so that their view can be customized
         DATE_SEPARATOR(0), ENTRY(1), SUMMARY(2);
 
         private int i;
@@ -43,7 +46,7 @@ public class EntriesWithSeparatorAndSummaryList extends ArrayList<Object> {
         makeList();
     }
 
-    private void makeList() {
+    protected void makeList() {
         clear();
 
         if (entries.isEmpty()) return;
@@ -57,11 +60,12 @@ public class EntriesWithSeparatorAndSummaryList extends ArrayList<Object> {
 
         // save missing between dates
         Date firstDate = inverseSortedDates.get(0);
-        Date lastDate = inverseSortedDates.get(inverseSortedDates.size() - 1);
+//        Date lastDate = inverseSortedDates.get(inverseSortedDates.size() - 1);
+        Date lastDate = new Date(); // Goes up to today
         int days = Days.daysBetween(new Instant(firstDate), new Instant(lastDate)).getDays();
 
         DailyDate control = new DailyDate(firstDate.getTime());
-        for (int i = 0; i < days; i++) {
+        for (int i = 0; i <= days; i++) {
             if (!inverseSortedDates.contains(control)) inverseSortedDates.add(control);
             control = new DailyDate(new LocalDate(control).plusDays(1).toDate().getTime());
         }
@@ -70,20 +74,28 @@ public class EntriesWithSeparatorAndSummaryList extends ArrayList<Object> {
         for (Date date : inverseSortedDates) {
             add(date);
             List<Entry> entries = map.get(date);
-            if (entries == null) entries = Collections.emptyList(); // fuck null
+            if (entries == null) {
+                entries = new ArrayList<>(); // fuck null
+                if (!date.equals(new DailyDate(new Date().getTime()))) {
+                    // add DailyOut unless it's today
+                    entries.add(new DailyEntry(dailyAvailable * -1, null, date)); // Add auto Daily Out transaction
+                }
+            }
 
+            entries.add(0, new DailyEntry(dailyAvailable, null, date)); // Add Daily In transaction
             for (Entry e : entries) {
                 add(e);
             }
-            Double[] doubles = new Double[2]; // total, balance
-            doubles[0] = entries.isEmpty() ? -dailyAvailable : calcEntryListTotal(entries).getAmount().doubleValue(); // empty day uses daily value
 
-            balance += dailyAvailable + doubles[0];//calcEntryListTotal(entries).getAmount().doubleValue();
+            Double[] doubles = new Double[2]; // total, balance
+            doubles[0] = calcEntryListTotal(entries).getAmount().doubleValue();
+
+//            balance += dailyAvailable + doubles[0];//calcEntryListTotal(entries).getAmount().doubleValue();
+            balance += doubles[0];//calcEntryListTotal(entries).getAmount().doubleValue();
             doubles[1] = balance;
 
             add(doubles);
         }
-
 
     }
 

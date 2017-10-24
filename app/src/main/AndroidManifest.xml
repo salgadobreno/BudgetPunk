@@ -38,7 +38,9 @@
         <activity
             android:name=".AddEntryActivity"
             android:label="@string/title_activity_add_entry"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme"
+            android:noHistory="true"
+            />
     </application>
 
 </manifest>

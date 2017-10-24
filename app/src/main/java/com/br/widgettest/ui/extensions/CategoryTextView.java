@@ -31,10 +31,11 @@ public class CategoryTextView extends TextView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (category != null) {
-            setText(category.getName());
-            setBackgroundColor(category.getColor());
-        }
+//        if (category != null) {
+//            setText(category.getName());
+//            setBackgroundColor(category.getColor());
+//        }
+        setText("");
         super.onDraw(canvas);
     }
 }
