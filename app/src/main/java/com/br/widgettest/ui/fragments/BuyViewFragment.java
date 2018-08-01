@@ -35,6 +35,7 @@ public class BuyViewFragment extends Fragment {
     private List<Entry> entries;
     private EntryByDateMap buyEntriesmap;
     private FixedEntriesWithSeparatorAndMofifierList fixedEntriesWithSeparatorAndMofifierList; //TODO
+    private ListView dateEntryListView;
     private BuyEntryAdapter buyEntryAdapter;
 
     @Nullable
@@ -42,35 +43,37 @@ public class BuyViewFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         loadData();
 
-        LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.list_view_with_button, null);
+//        LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.list_view_with_button, null);
 
-//        ListView dateEntryListView = new ListView(getContext());
-        ListView dateEntryListView = (ListView) linearLayout.findViewById(R.id.fragment_list_view);
+        dateEntryListView = new ListView(getContext());
+//        ListView dateEntryListView = (ListView) linearLayout.findViewById(R.id.fragment_list_view);
         dateEntryListView.setStackFromBottom(true);
         buyEntryAdapter = new BuyEntryAdapter(getContext(), fixedEntriesWithSeparatorAndMofifierList);
         dateEntryListView.setAdapter(buyEntryAdapter);
 
-        Button addEntryButton = (Button) linearLayout.findViewById(R.id.fragment_button);
-        addEntryButton.setText("Add Entry");
-        addEntryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddEntryActivity.class);
-                intent.putExtra("entryType", Entry.EntryType.BOUGHT.name());
-                getContext().startActivity(intent);
-            }
-        });
+//        Button addEntryButton = (Button) linearLayout.findViewById(R.id.fragment_button);
+//        addEntryButton.setText("Add Entry");
+//        addEntryButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), AddEntryActivity.class);
+//                intent.putExtra("entryType", Entry.EntryType.BOUGHT.name());
+//                getContext().startActivity(intent);
+//            }
+//        });
 
-//        return dateEntryListView;
-        return linearLayout;
+        return dateEntryListView;
+//        return linearLayout;
     }
 
     @Override
     public void onResume() {
         super.onResume();
         loadData();
-        buyEntryAdapter.setFixedEntriesWithSeparatorAndMofifierList(fixedEntriesWithSeparatorAndMofifierList);
-        buyEntryAdapter.notifyDataSetChanged();
+        buyEntryAdapter = new BuyEntryAdapter(getContext(), fixedEntriesWithSeparatorAndMofifierList);
+//        buyEntryAdapter.setFixedEntriesWithSeparatorAndMofifierList(fixedEntriesWithSeparatorAndMofifierList);
+//        buyEntryAdapter.notifyDataSetChanged();
+        dateEntryListView.setAdapter(buyEntryAdapter);
     }
 
     private void loadData() {

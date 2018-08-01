@@ -32,7 +32,13 @@ import java.util.List;
 @Trace
 public class FixedViewFragment extends Fragment {
     private ILedger ledger;
+
     private List<Entry> entries;
+    private FixedEntryAdapter fixedEntriesAdapter;
+    private ListView fixedEntriesListView;
+    LinearLayout summary;
+    TextView summaryTotal;
+    TextView summaryAdditive;
 
     @Nullable
     @Override
@@ -41,15 +47,16 @@ public class FixedViewFragment extends Fragment {
 
         entries = (List<Entry>) ledger.getEntries(Entry.EntryType.FIXED);
 
-        LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.list_view_with_button, null);
+//        LinearLayout linearLayout = (LinearLayout) inflater.inflate(R.layout.list_view_with_button, null);
 
-//        ListView fixedEntriesListView = new ListView(getContext());
-        ListView fixedEntriesListView = (ListView) linearLayout.findViewById(R.id.fragment_list_view);
-        fixedEntriesListView.setAdapter(new FixedEntryAdapter(getContext(), entries));
+        fixedEntriesListView = new ListView(getContext());
+//        ListView fixedEntriesListView = (ListView) linearLayout.findViewById(R.id.fragment_list_view);
+        fixedEntriesAdapter = new FixedEntryAdapter(getContext(), entries);
+        fixedEntriesListView.setAdapter(fixedEntriesAdapter);
 
-        LinearLayout summary = (LinearLayout) inflater.inflate(R.layout.fixed_entries_summary, null);
-        TextView summaryTotal = (TextView) summary.findViewById(R.id.fixed_entries_total);
-        TextView summaryAdditive = (TextView) summary.findViewById(R.id.fixed_entries_summary_additive);
+        summary = (LinearLayout) inflater.inflate(R.layout.fixed_entries_summary, null);
+        summaryTotal = (TextView) summary.findViewById(R.id.fixed_entries_total);
+        summaryAdditive = (TextView) summary.findViewById(R.id.fixed_entries_summary_additive);
 
         summaryTotal.setText(
                 new CurrencyFormattedText(ledger.calcAvailableFromFixed())
@@ -59,18 +66,36 @@ public class FixedViewFragment extends Fragment {
 
         fixedEntriesListView.addFooterView(summary);
 
-        Button addEntryButton = (Button) linearLayout.findViewById(R.id.fragment_button);
-        addEntryButton.setText("Add Entry");
-        addEntryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddEntryActivity.class);
-                intent.putExtra("entryType", Entry.EntryType.FIXED.name());
-                getContext().startActivity(intent);
-            }}
-        );
+//        Button addEntryButton = (Button) linearLayout.findViewById(R.id.fragment_button);
+//        addEntryButton.setText("Add Entry");
+//        addEntryButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(getContext(), AddEntryActivity.class);
+//                intent.putExtra("entryType", Entry.EntryType.FIXED.name());
+//                getContext().startActivity(intent);
+//            }}
+//        );
 
-//        return fixedEntriesListView;
-        return linearLayout;
+        return fixedEntriesListView;
+//        return linearLayout;
+    }
+
+    private void loadData() {
+        ledger = new Ledger(new EntryDao(), new CategoryDao(getContext()));
+        entries = (List<Entry>) ledger.getEntries(Entry.EntryType.FIXED);
+        fixedEntriesAdapter = new FixedEntryAdapter(getContext(), entries);
+        fixedEntriesListView.setAdapter(fixedEntriesAdapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+//        dailyEntryAdapter.setEntriesWithSeparatorAndSummaryList(entriesWithSeparatorAndSummaryList);
+//        dailyEntryAdapter.notifyDataSetChanged();
+//        dateEntryListView.smoothScrollToPosition(entriesWithSeparatorAndSummaryList.size() - 1);
+        fixedEntriesAdapter.notifyDataSetChanged();
+        fixedEntriesListView.smoothScrollToPosition(entries.size() - 1);
     }
 }

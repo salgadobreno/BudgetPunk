@@ -14,6 +14,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 @Aspect
 public class TraceAspect {
     static final String ALL_WIDGETTEST = "execution(* com.br.widgettest..*(..))";
+    static final String TAG = "TRACE ";
     static String level = "  ";
 
     @Pointcut("within(@com.aop.annotations.Trace *)")
@@ -27,11 +28,11 @@ public class TraceAspect {
         String method = MethodSignature.class.cast(point.getSignature()).getMethod().getName();
         String klazz = point.getSignature().getDeclaringTypeName();
 
-        Log.d(">", String.format("%s %s: %s", level, klazz, method));
+        Log.d(TAG + ">", String.format("%s %s: %s", level, klazz, method));
         level += "  ";
         Object result = point.proceed();
         level = level.substring(2);
-        Log.d("<", String.format("%s %s: %s", level, klazz, method));
+        Log.d(TAG + "<", String.format("%s %s: %s", level, klazz, method));
 
         return result;
     }
