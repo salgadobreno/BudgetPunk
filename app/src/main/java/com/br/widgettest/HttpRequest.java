@@ -2474,7 +2474,7 @@ public class HttpRequest {
 
   /**
    * Set the 'Authorization' header to given values in Basic authentication
-   * format
+   * toString
    *
    * @param name
    * @param password
@@ -2486,7 +2486,7 @@ public class HttpRequest {
 
   /**
    * Set the 'Proxy-Authorization' header to given values in Basic authentication
-   * format
+   * toString
    *
    * @param name
    * @param password

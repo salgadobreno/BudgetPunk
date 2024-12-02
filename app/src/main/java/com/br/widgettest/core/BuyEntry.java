@@ -1,14 +1,10 @@
 package com.br.widgettest.core;
 
-import com.orm.SugarRecord;
-
 import org.joda.money.Money;
+import org.joda.time.DateTime;
 import org.joda.time.DateTimeFieldType;
-import org.joda.time.Days;
-import org.joda.time.Duration;
 import org.joda.time.Instant;
 import org.joda.time.LocalDate;
-import org.joda.time.Months;
 
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
@@ -31,7 +27,7 @@ public class BuyEntry extends Entry {
         }
         // startDate and endDate should be on first days of months
         if (new Instant(startDate.getTime()).get(DateTimeFieldType.dayOfMonth()) != 1 ||
-            new Instant(endDate.getTime()).get(DateTimeFieldType.dayOfMonth()) != 1) {
+                new Instant(endDate.getTime()).get(DateTimeFieldType.dayOfMonth()) != 1) {
             throw new IllegalArgumentException("Only full months are allowed for BuyEntries");
         }
     }
@@ -50,6 +46,10 @@ public class BuyEntry extends Entry {
     @Override
     public Money getValue() {
         return super.getValue();
+    }
+
+    public Double doubleValue() {
+        return super.getValue().getAmount().doubleValue();
     }
 
     public String getPeriod() {
@@ -76,5 +76,17 @@ public class BuyEntry extends Entry {
         long milliseconds = getEndDate().getTime() - getStartDate().getTime();
 
         return (int) TimeUnit.MILLISECONDS.toDays(milliseconds);
+    }
+
+    public int getTotalParcels() {
+        return new DateTime(getEndDate()).monthOfYear().getDifference(new DateTime(getStartDate()));
+    }
+
+    public int getCurrentParcel() {
+        if (Instant.now().isAfter(new Instant(getEndDate()))) {
+            return getTotalParcels();
+        } else {
+            return new DateTime().monthOfYear().getDifference(new DateTime(getStartDate())) + 1;
+        }
     }
 }

@@ -18,7 +18,7 @@ import com.br.widgettest.core.DailyEntry;
 import com.br.widgettest.core.ILedger;
 import com.br.widgettest.core.dao.EntryDao;
 import com.br.widgettest.core.ledger.LightLedger;
-import com.br.widgettest.ui.IListAndInputInterface;
+import com.br.widgettest.ui.MainUI;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -27,7 +27,7 @@ import java.util.Date;
 
 @Trace
 public class EditDailyEntryFragment extends Fragment implements View.OnClickListener {
-    private IListAndInputInterface holder;
+    private MainUI holder;
 
     public static final int DIGIT_0 = R.id.digit0;
     public static final int DIGIT_1 = R.id.digit1;
@@ -61,7 +61,7 @@ public class EditDailyEntryFragment extends Fragment implements View.OnClickList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_edit_daily_entry, container, false);
+        View view = inflater.inflate(R.layout._fragment_edit_daily_entry, container, false);
         for (int id : BUTTONS) {
             view.findViewById(id).setOnClickListener(this);
         }
@@ -123,10 +123,11 @@ public class EditDailyEntryFragment extends Fragment implements View.OnClickList
                 DailyEntry entry = new DailyEntry(input, Category.NULL, ui.getDate());
                 ledger.add(entry);
                 value = "";
-                holder.showList(true);
+                holder.hideEditor();
+                holder.scrollBottom();
                 break;
             case INFO:
-                holder.showList(false);
+                holder.hideEditor();
                 break;
             case DATE_DISPLAY:
                 // pop up date select
@@ -138,7 +139,7 @@ public class EditDailyEntryFragment extends Fragment implements View.OnClickList
         ui.flush();
     }
 
-    public void setHolder(IListAndInputInterface holder) {
+    public void setHolder(MainUI holder) {
         this.holder = holder;
     }
 

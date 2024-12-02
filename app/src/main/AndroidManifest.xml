@@ -1,53 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.br.widgettest">
+          package="com.br.widgettest">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
-    <application
-        android:name="com.orm.SugarApp"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:supportsRtl="true"
+  <application
+      android:name="com.orm.SugarApp"
+      android:allowBackup="true"
+      android:icon="@drawable/ic_bplogo"
+      android:label="@string/app_name"
+      android:supportsRtl="true"
+      android:theme="@style/AppTheme">
+    <meta-data
+        android:name="DATABASE"
+        android:value="x.db"/>
+    <meta-data
+        android:name="VERSION"
+        android:value="3"/>
+    <meta-data
+        android:name="QUERY_LOG"
+        android:value="true"/>
+    <!-- <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="br.widgettest.core"/> -->
+
+    <receiver android:name=".AddEntryWidget">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+      </intent-filter>
+
+      <meta-data
+          android:name="android.appwidget.provider"
+          android:resource="@xml/calculator_widget_info"/>
+    </receiver>
+
+    <activity
+        android:name=".InfoDisplayActivity"
+        android:label="@string/title_activity_info_display"
+        android:theme="@style/AppTheme"
+        android:windowSoftInputMode="stateUnchanged|adjustPan">
+
+      <!-- android:theme="@style/AppTheme.NoActionBar" -->
+    </activity>
+    <activity
+        android:name=".AddEntryActivity"
+        android:label="@string/title_activity_add_entry"
+        android:noHistory="true"
+        android:theme="@style/AppTheme"/>
+    <activity
+        android:name=".MainActivity"
+        android:screenOrientation="portrait"
+        android:logo="@drawable/ic_bplogo"
+        android:noHistory="true"
         android:theme="@style/AppTheme">
-        <meta-data
-            android:name="DATABASE"
-            android:value="x.db" />
-        <meta-data
-            android:name="VERSION"
-            android:value="3" />
-        <meta-data
-            android:name="QUERY_LOG"
-            android:value="true" />
-        <!-- <meta-data android:name="DOMAIN_PACKAGE_NAME" android:value="br.widgettest.core"/> -->
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
 
-        <receiver android:name=".AddEntryWidget">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/calculator_widget_info" />
-        </receiver>
-
-        <activity
-            android:name=".InfoDisplayActivity"
-            android:label="@string/title_activity_info_display"
-            android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:windowSoftInputMode="stateUnchanged|adjustPan"
-            >
-
-            <!-- android:theme="@style/AppTheme.NoActionBar" -->
-        </activity>
-        <activity
-            android:name=".AddEntryActivity"
-            android:label="@string/title_activity_add_entry"
-            android:noHistory="true"
-            android:theme="@style/AppTheme" />
-    </application>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+    </activity>
+  </application>
 
 </manifest><!--
     <?xml version="1.0" encoding="utf-8"?>

@@ -32,8 +32,8 @@ import com.br.widgettest.core.entity.BuyEntryEntity;
 import com.br.widgettest.core.entity.DailyEntryEntity;
 import com.br.widgettest.core.entity.FixedEntryEntity;
 import com.br.widgettest.core.entity.util.EntryEntityToEntry;
-import com.br.widgettest.core.ledger.Ledger;
 
+import com.br.widgettest.core.ledger.Ledger;
 import org.joda.money.Money;
 import org.joda.time.Instant;
 

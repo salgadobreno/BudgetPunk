@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.View;
 import android.widget.RemoteViews;
 
 import com.aop.annotations.Trace;
@@ -16,16 +15,7 @@ import com.br.widgettest.core.Category;
 import com.br.widgettest.core.DailyEntry;
 import com.br.widgettest.core.ILedger;
 import com.br.widgettest.core.dao.EntryDao;
-import com.br.widgettest.core.exceptions.NotImplementedException;
 import com.br.widgettest.core.ledger.LightLedger;
-import com.xlythe.math.Base;
-import com.xlythe.math.Constants;
-import com.xlythe.math.EquationFormatter;
-import com.xlythe.math.History;
-import com.xlythe.math.Persist;
-import com.xlythe.math.Solver;
-
-import org.javia.arity.SyntaxException;
 
 import static com.br.widgettest.AddEntryWidget.PREFERENCE_WIDGET_PREAMBLE;
 

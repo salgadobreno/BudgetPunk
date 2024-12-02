@@ -4,8 +4,8 @@ import android.util.Log;
 
 import com.br.widgettest.core.DailyEntry;
 import com.br.widgettest.core.Entry;
-import com.br.widgettest.core.ledger.decorators.EntryByDateMap;
 
+import com.br.widgettest.core.ledger.decorators.EntryByDateMap;
 import org.joda.money.Money;
 import org.joda.time.Days;
 import org.joda.time.Instant;

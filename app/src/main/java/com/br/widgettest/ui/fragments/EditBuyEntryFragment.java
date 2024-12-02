@@ -20,9 +20,9 @@ import com.br.widgettest.core.BuyEntry;
 import com.br.widgettest.core.Category;
 import com.br.widgettest.core.ILedger;
 import com.br.widgettest.core.dao.EntryDao;
-import com.br.widgettest.core.ledger.LightLedger;
-import com.br.widgettest.ui.IListAndInputInterface;
 
+import com.br.widgettest.core.ledger.LightLedger;
+import com.br.widgettest.ui.MainUI;
 import org.joda.time.Instant;
 
 import java.util.Date;
@@ -32,7 +32,7 @@ import java.util.Date;
  */
 @Trace
 public class EditBuyEntryFragment extends Fragment implements View.OnClickListener {
-    private IListAndInputInterface holder;
+    private MainUI holder;
 
     public static final int DIGIT_0 = R.id.digit0;
     public static final int DIGIT_1 = R.id.digit1;
@@ -70,7 +70,7 @@ public class EditBuyEntryFragment extends Fragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_edit_buy_entry, container, false);
+        View view = inflater.inflate(R.layout._fragment_edit_buy_entry, container, false);
         for (int id : BUTTONS) {
             view.findViewById(id).setOnClickListener(this);
         }
@@ -161,10 +161,13 @@ public class EditBuyEntryFragment extends Fragment implements View.OnClickListen
                 }
                 ledger.add(entry);
                 value = "";
-                holder.showList(true);
+//                holder.showList(true);
+                holder.hideEditor();
+                holder.scrollBottom();
                 break;
             case INFO:
-                holder.showList(false);
+//                holder.showList(false);
+                holder.hideEditor();
                 break;
             case DATE_DISPLAY:
                 // pop up date select
@@ -177,7 +180,7 @@ public class EditBuyEntryFragment extends Fragment implements View.OnClickListen
         ui.flush();
     }
 
-    public void setHolder(IListAndInputInterface holder) {
+    public void setHolder(MainUI holder) {
         this.holder = holder;
     }
 

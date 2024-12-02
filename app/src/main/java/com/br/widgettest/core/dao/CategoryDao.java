@@ -5,8 +5,6 @@ import android.content.Context;
 import com.br.widgettest.core.Category;
 import com.br.widgettest.core.exceptions.NotImplementedException;
 
-import java.util.List;
-
 /**
  * Created by Breno on 2/9/2016.
  */

@@ -2,10 +2,8 @@ package com.br.widgettest.core.dao;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.os.Environment;
 import android.util.Log;
 
-import com.aop.annotations.Trace;
 import com.br.widgettest.R;
 import com.br.widgettest.core.BuyEntry;
 import com.br.widgettest.core.Category;
@@ -14,7 +12,6 @@ import com.br.widgettest.core.Entry;
 import com.br.widgettest.core.FixedEntry;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;

@@ -20,7 +20,7 @@ import com.br.widgettest.core.dao.CategoryDao;
 import com.br.widgettest.core.dao.EntryDao;
 import com.br.widgettest.core.ledger.Ledger;
 import com.br.widgettest.ui.extensions.CurrencyFormattedText;
-import com.br.widgettest.ui.fragments.util.FixedEntriesWithSeparatorAndMofifierList;
+import com.br.widgettest.ui.fragments.util.BuyEntriesWithSeparatorAndMofifierList;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,12 +30,12 @@ import java.util.Date;
  */
 public class BuyEntryAdapter extends ArrayAdapter<Object> implements BuyEntryUI {
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM/yyyy");
-    private FixedEntriesWithSeparatorAndMofifierList fixedEntriesWithSeparatorAndMofifierList;
+    private BuyEntriesWithSeparatorAndMofifierList buyEntriesWithSeparatorAndMofifierList;
     private ILedger ledger;
 
-    public BuyEntryAdapter(Context context, FixedEntriesWithSeparatorAndMofifierList fixedEntriesWithSeparatorAndMofifierList) {
-        super(context, R.layout.buy_entry_row, fixedEntriesWithSeparatorAndMofifierList);
-        this.fixedEntriesWithSeparatorAndMofifierList = fixedEntriesWithSeparatorAndMofifierList;
+    public BuyEntryAdapter(Context context, BuyEntriesWithSeparatorAndMofifierList buyEntriesWithSeparatorAndMofifierList) {
+        super(context, R.layout.buy_entry_row, buyEntriesWithSeparatorAndMofifierList);
+        this.buyEntriesWithSeparatorAndMofifierList = buyEntriesWithSeparatorAndMofifierList;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class BuyEntryAdapter extends ArrayAdapter<Object> implements BuyEntryUI 
 
     @Override
     public int getItemViewType(int position) {
-        return fixedEntriesWithSeparatorAndMofifierList.getEntryViewType(position).getI();
+        return buyEntriesWithSeparatorAndMofifierList.getEntryViewType(position).getI();
     }
 
     @Override
@@ -60,7 +60,7 @@ public class BuyEntryAdapter extends ArrayAdapter<Object> implements BuyEntryUI 
 
         switch (type) {
             case 0: //DATE_SEPARATOR
-                Date date = (Date) fixedEntriesWithSeparatorAndMofifierList.get(position);
+                Date date = (Date) buyEntriesWithSeparatorAndMofifierList.get(position);
 
                 TextView dateView = (TextView) convertView.findViewById(R.id.date_separator_text);
                 dateView.setText(simpleDateFormat.format(date));
@@ -107,7 +107,7 @@ public class BuyEntryAdapter extends ArrayAdapter<Object> implements BuyEntryUI 
 
                 break;
             case 2: //SUMMARY
-                Double modifier = (Double) fixedEntriesWithSeparatorAndMofifierList.get(position);
+                Double modifier = (Double) buyEntriesWithSeparatorAndMofifierList.get(position);
 
                 TextView modifierView = (TextView) convertView.findViewById(R.id.buy_entry_modifier);
 
@@ -119,13 +119,13 @@ public class BuyEntryAdapter extends ArrayAdapter<Object> implements BuyEntryUI 
         return convertView;
     }
 
-    public void setFixedEntriesWithSeparatorAndMofifierList(FixedEntriesWithSeparatorAndMofifierList fixedEntriesWithSeparatorAndMofifierList) {
-        this.fixedEntriesWithSeparatorAndMofifierList = fixedEntriesWithSeparatorAndMofifierList;
+    public void setBuyEntriesWithSeparatorAndMofifierList(BuyEntriesWithSeparatorAndMofifierList buyEntriesWithSeparatorAndMofifierList) {
+        this.buyEntriesWithSeparatorAndMofifierList = buyEntriesWithSeparatorAndMofifierList;
     }
 
     @Override
     public boolean delete(Entry entry) {
-        fixedEntriesWithSeparatorAndMofifierList.remove(entry);
+        buyEntriesWithSeparatorAndMofifierList.remove(entry);
 
         getLedger().rm(entry);
         notifyDataSetChanged();

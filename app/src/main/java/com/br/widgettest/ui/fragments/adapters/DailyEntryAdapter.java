@@ -18,7 +18,6 @@ import com.br.widgettest.core.Entry;
 import com.br.widgettest.core.ILedger;
 import com.br.widgettest.core.dao.CategoryDao;
 import com.br.widgettest.core.dao.EntryDao;
-import com.br.widgettest.core.entity.DailyEntryEntity;
 import com.br.widgettest.core.ledger.Ledger;
 import com.br.widgettest.ui.extensions.CategoryTextView;
 import com.br.widgettest.ui.extensions.CurrencyFormattedText;

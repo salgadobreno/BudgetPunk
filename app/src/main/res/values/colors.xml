@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="currency_negative">#e95152</color>
     <color name="currency_positive">#67c646</color>
+    <color name="ubuntu_purple_dark">#2C001E</color>
 </resources>

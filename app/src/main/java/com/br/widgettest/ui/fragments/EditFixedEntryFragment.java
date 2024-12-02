@@ -13,20 +13,18 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.aop.annotations.Trace;
 import com.br.widgettest.R;
 import com.br.widgettest.core.Category;
 import com.br.widgettest.core.FixedEntry;
 import com.br.widgettest.core.ILedger;
 import com.br.widgettest.core.dao.EntryDao;
 import com.br.widgettest.core.ledger.LightLedger;
-import com.br.widgettest.ui.IListAndInputInterface;
+import com.br.widgettest.ui.MainUI;
 
-@Trace
+//@Trace
 public class EditFixedEntryFragment extends Fragment implements View.OnClickListener {
-    private IListAndInputInterface holder;
+    private MainUI holder;
 
     public static final int DIGIT_0 = R.id.digit0;
     public static final int DIGIT_1 = R.id.digit1;
@@ -60,7 +58,7 @@ public class EditFixedEntryFragment extends Fragment implements View.OnClickList
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_edit_fixed_entry, container, false);
+        View view = inflater.inflate(R.layout._fragment_edit_fixed_entry, container, false);
         for (int id : BUTTONS) {
             view.findViewById(id).setOnClickListener(this);
         }
@@ -123,10 +121,13 @@ public class EditFixedEntryFragment extends Fragment implements View.OnClickList
                 FixedEntry entry = new FixedEntry(name, input, Category.NULL);
                 ledger.add(entry);
                 value = "";
-                holder.showList(true);
+//                holder.showList(true);
+                holder.hideEditor();
+                holder.scrollBottom();
                 break;
             case INFO:
-                holder.showList(false);
+//                holder.showList(false);
+                holder.hideEditor();
                 break;
             case DATE_DISPLAY:
                 // pop up date select
@@ -138,7 +139,7 @@ public class EditFixedEntryFragment extends Fragment implements View.OnClickList
         ui.flush();
     }
 
-    public void setHolder(IListAndInputInterface holder) {
+    public void setHolder(MainUI holder) {
         this.holder = holder;
     }
 
@@ -160,6 +161,7 @@ public class EditFixedEntryFragment extends Fragment implements View.OnClickList
         enum InputMode { EXPENSE, INCOME }
 
         private String value;
+        private String name;
         private InputMode inputMode;
 
         private View.OnClickListener nameOnClickListener = new View.OnClickListener() {
@@ -177,7 +179,7 @@ public class EditFixedEntryFragment extends Fragment implements View.OnClickList
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 final String newName = popupEditText.getText().toString();
 
-                                setValue(newName);
+                                setName(newName);
                                 flush();
                                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.RESULT_UNCHANGED_SHOWN);
                             }
@@ -198,6 +200,7 @@ public class EditFixedEntryFragment extends Fragment implements View.OnClickList
 
             this.rootView = rootView;
             this.value = "";
+            this.name = "";
             this.inputMode = InputMode.EXPENSE;
 
             final EditText nameField = (EditText) rootView.findViewById(R.id.edit_text_name);
@@ -206,8 +209,11 @@ public class EditFixedEntryFragment extends Fragment implements View.OnClickList
         }
 
         public String getName() {
-            EditText name = (EditText) rootView.findViewById(R.id.edit_text_name);
-            return name.getText().toString();
+            return this.name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
 
         public void setInputMode(InputMode inputMode) {
@@ -245,11 +251,12 @@ public class EditFixedEntryFragment extends Fragment implements View.OnClickList
         }
 
         public void flush() {
-//            EditText name = (EditText) rootView.findViewById(R.id.edit_text_name);
+            EditText nameInput = (EditText) rootView.findViewById(R.id.edit_text_name);
             TextView display = (TextView) rootView.findViewById(R.id.display);
             View expenseButton = rootView.findViewById(R.id.expense_button);
             View incomeButton = rootView.findViewById(R.id.income_button);
 
+            nameInput.setText(getName());
             display.setText(getValue());
             switch (getInputMode()) {
                 case EXPENSE:

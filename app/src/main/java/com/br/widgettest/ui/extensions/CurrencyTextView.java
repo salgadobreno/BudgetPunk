@@ -14,7 +14,7 @@ import java.text.ParseException;
 /**
  * Created by Breno on 1/23/2016.
  */
-public class CurrencyTextView extends TextView {
+public class CurrencyTextView extends android.support.v7.widget.AppCompatTextView {
     private NumberFormat nf = NumberFormat.getCurrencyInstance();
     {
         nf.setParseIntegerOnly(false);

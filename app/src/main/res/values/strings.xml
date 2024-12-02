@@ -1,120 +1,210 @@
 <resources>
-    <string name="app_name">Widgettest</string>
+  <string name="app_name">Widgettest</string>
 
 
-    <!-- Error displayed when expression evaluates to NaN. [CHAR_LIMIT=14] -->
-    <string name="error_nan">Not a number</string>
-    <!-- Error displayed when expression contains a syntax error. [CHAR_LIMIT=14] -->
-    <string name="error_syntax">Error</string>
+  <!-- Error displayed when expression evaluates to NaN. [CHAR_LIMIT=14] -->
+  <string name="error_nan">Not a number</string>
+  <!-- Error displayed when expression contains a syntax error. [CHAR_LIMIT=14] -->
+  <string name="error_syntax">Error</string>
 
-    <!-- Decimal separator (e.g. "1.23"). [CHAR_LIMIT=1] -->
-    <string name="dec_point">.</string>
+  <!-- Decimal separator (e.g. "1.23"). [CHAR_LIMIT=1] -->
+  <string name="dec_point">.</string>
 
-    <!-- Decimal representation of zero (e.g. "0", "10", "1.0", "1e0"). [CHAR_LIMIT=1] -->
-    <string name="digit_0">0</string>
-    <!-- Decimal representation of one (e.g. "1", "11", "1.1", "1e1"). [CHAR_LIMIT=1] -->
-    <string name="digit_1">1</string>
-    <!-- Decimal representation of two (e.g. "2", "22", "2.2", "2e2"). [CHAR_LIMIT=1] -->
-    <string name="digit_2">2</string>
-    <!-- Decimal representation of three (e.g. "3", "33", "3.3", "3e3"). [CHAR_LIMIT=1] -->
-    <string name="digit_3">3</string>
-    <!-- Decimal representation of four (e.g. "4", "44", "4.4", "4e4"). [CHAR_LIMIT=1] -->
-    <string name="digit_4">4</string>
-    <!-- Decimal representation of five (e.g. "5", "55", "5.5", "5e5"). [CHAR_LIMIT=1] -->
-    <string name="digit_5">5</string>
-    <!-- Decimal representation of six (e.g. "6", "66", "6.6", "6e6"). [CHAR_LIMIT=1] -->
-    <string name="digit_6">6</string>
-    <!-- Decimal representation of seven (e.g. "7", "77", "7.7", "7e7"). [CHAR_LIMIT=1] -->
-    <string name="digit_7">7</string>
-    <!-- Decimal representation of eight (e.g. "8", "88", "8.8", "8e8"). [CHAR_LIMIT=1] -->
-    <string name="digit_8">8</string>
-    <!-- Decimal representation of eight (e.g. "9", "99", "9.9", "9e9"). [CHAR_LIMIT=1] -->
-    <string name="digit_9">9</string>
+  <!-- Decimal representation of zero (e.g. "0", "10", "1.0", "1e0"). [CHAR_LIMIT=1] -->
+  <string name="digit_0">0</string>
+  <!-- Decimal representation of one (e.g. "1", "11", "1.1", "1e1"). [CHAR_LIMIT=1] -->
+  <string name="digit_1">1</string>
+  <!-- Decimal representation of two (e.g. "2", "22", "2.2", "2e2"). [CHAR_LIMIT=1] -->
+  <string name="digit_2">2</string>
+  <!-- Decimal representation of three (e.g. "3", "33", "3.3", "3e3"). [CHAR_LIMIT=1] -->
+  <string name="digit_3">3</string>
+  <!-- Decimal representation of four (e.g. "4", "44", "4.4", "4e4"). [CHAR_LIMIT=1] -->
+  <string name="digit_4">4</string>
+  <!-- Decimal representation of five (e.g. "5", "55", "5.5", "5e5"). [CHAR_LIMIT=1] -->
+  <string name="digit_5">5</string>
+  <!-- Decimal representation of six (e.g. "6", "66", "6.6", "6e6"). [CHAR_LIMIT=1] -->
+  <string name="digit_6">6</string>
+  <!-- Decimal representation of seven (e.g. "7", "77", "7.7", "7e7"). [CHAR_LIMIT=1] -->
+  <string name="digit_7">7</string>
+  <!-- Decimal representation of eight (e.g. "8", "88", "8.8", "8e8"). [CHAR_LIMIT=1] -->
+  <string name="digit_8">8</string>
+  <!-- Decimal representation of eight (e.g. "9", "99", "9.9", "9e9"). [CHAR_LIMIT=1] -->
+  <string name="digit_9">9</string>
 
-    <!-- Abbrev. name of cosine function (e.g. "cos(π)". [CHAR_LIMIT=3] -->
-    <string name="fun_cos">cos</string>
-    <!-- Natural logarithm function (e.g. "ln(2)"). [CHAR_LIMIT=3] -->
-    <string name="fun_ln">ln</string>
-    <!-- Logarithm function (e.g. "log(10)"). [CHAR_LIMIT=3] -->
-    <string name="fun_log">log</string>
-    <!-- Abbrev. name of sine function (e.g. "sin(π)". [CHAR_LIMIT=3] -->
-    <string name="fun_sin">sin</string>
-    <!-- Abbrev. name of tangent function (e.g. "tan(π)". [CHAR_LIMIT=3] -->
-    <string name="fun_tan">tan</string>
+  <!-- Abbrev. name of cosine function (e.g. "cos(π)". [CHAR_LIMIT=3] -->
+  <string name="fun_cos">cos</string>
+  <!-- Natural logarithm function (e.g. "ln(2)"). [CHAR_LIMIT=3] -->
+  <string name="fun_ln">ln</string>
+  <!-- Logarithm function (e.g. "log(10)"). [CHAR_LIMIT=3] -->
+  <string name="fun_log">log</string>
+  <!-- Abbrev. name of sine function (e.g. "sin(π)". [CHAR_LIMIT=3] -->
+  <string name="fun_sin">sin</string>
+  <!-- Abbrev. name of tangent function (e.g. "tan(π)". [CHAR_LIMIT=3] -->
+  <string name="fun_tan">tan</string>
 
-    <!-- Clear operation to clear the currently entered expression. [CHAR_LIMIT=3] -->
-    <string name="clr">clr</string>
-    <!-- Delete operation to remove last entered token. [CHAR_LIMIT=3] -->
-    <string name="del">del</string>
+  <!-- Clear operation to clear the currently entered expression. [CHAR_LIMIT=3] -->
+  <string name="clr">clr</string>
+  <!-- Delete operation to remove last entered token. [CHAR_LIMIT=3] -->
+  <string name="del">del</string>
 
-    <!-- Content Descriptions -->
-    <eat-comment />
+  <!-- Content Descriptions -->
+  <eat-comment/>
 
-    <!-- Content description for 'e' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_const_e">Euler\'s number</string>
-    <!-- Content description for 'π' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_const_pi">pi</string>
+  <!-- Content description for 'e' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_const_e">Euler\'s number</string>
+  <!-- Content description for 'π' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_const_pi">pi</string>
 
-    <!-- Content description for '.' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_dec_point">point</string>
+  <!-- Content description for '.' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_dec_point">point</string>
 
-    <!-- Content description for '(' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_lparen">left parenthesis</string>
-    <!-- Content description for ')' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_rparen">right parenthesis</string>
+  <!-- Content description for '(' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_lparen">left parenthesis</string>
+  <!-- Content description for ')' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_rparen">right parenthesis</string>
 
-    <!-- Content description for 'cos' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_fun_cos">cosine</string>
-    <!-- Content description for 'ln' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_fun_ln">natural logarithm</string>
-    <!-- Content description for 'log' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_fun_log">logarithm</string>
-    <!-- Content description for 'sin' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_fun_sin">sine</string>
-    <!-- Content description for 'tan' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_fun_tan">tangent</string>
+  <!-- Content description for 'cos' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_fun_cos">cosine</string>
+  <!-- Content description for 'ln' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_fun_ln">natural logarithm</string>
+  <!-- Content description for 'log' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_fun_log">logarithm</string>
+  <!-- Content description for 'sin' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_fun_sin">sine</string>
+  <!-- Content description for 'tan' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_fun_tan">tangent</string>
 
-    <!-- Content description for '+' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_op_add">plus</string>
-    <!-- Content description for '÷' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_op_div">divide</string>
-    <!-- Content description for '!' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_op_fact">factorial</string>
-    <!-- Content description for '×' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_op_mul">times</string>
-    <!-- Content description for '^' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_op_pow">power</string>
-    <!-- Content description for '√' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_op_sqrt">square root</string>
-    <!-- Content description for '-' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_op_sub">minus</string>
+  <!-- Content description for '+' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_op_add">plus</string>
+  <!-- Content description for '÷' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_op_div">divide</string>
+  <!-- Content description for '!' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_op_fact">factorial</string>
+  <!-- Content description for '×' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_op_mul">times</string>
+  <!-- Content description for '^' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_op_pow">power</string>
+  <!-- Content description for '√' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_op_sqrt">square root</string>
+  <!-- Content description for '-' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_op_sub">minus</string>
 
-    <!-- Content description for "clr" button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_clr">clear</string>
-    <!-- Content description for "del" button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_del">delete</string>
-    <!-- Content description for '=' button. [CHAR_LIMIT=NONE] -->
-    <string name="desc_eq">equals</string>
-    <string name="clear">clear</string>
-    <string name="op_mul">UP</string>
-    <string name="op_sub">-</string>
-    <string name="eq">=</string>
-    <string name="op_add">+</string>
-    <string name="op_div">H</string>
-    <string name="expense">Expense</string>
-    <string name="income">Income</string>
-    <string name="cdayexp">$$$ CDAYEXP</string>
-    <string name="prevrest">(+PREVREST)</string>
-    <string name="adtinfo">EXPBALANCE</string>
-    <string name="category">category</string>
-    <string name="title_activity_info">InfoActivity</string>
-    <string name="title_activity_info_display">InfoDisplayActivity</string>
-    <string name="title_activity_info_display2">InfoDisplayActivity2</string>
-    <string name="action_settings">Settings</string>
-    <string name="section_format">Hello World from section: %1$d</string>
-    <string name="title_activity_add_entry">AddEntryActivity</string>
+  <!-- Content description for "clr" button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_clr">clear</string>
+  <!-- Content description for "del" button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_del">delete</string>
+  <!-- Content description for '=' button. [CHAR_LIMIT=NONE] -->
+  <string name="desc_eq">equals</string>
+  <string name="clear">clear</string>
+  <string name="op_mul">UP</string>
+  <string name="op_sub">-</string>
+  <string name="eq">=</string>
+  <string name="op_add">+</string>
+  <string name="op_div">H</string>
+  <string name="expense">Expense</string>
+  <string name="income">Income</string>
+  <string name="cdayexp">$$$ CDAYEXP</string>
+  <string name="prevrest">(+PREVREST)</string>
+  <string name="adtinfo">EXPBALANCE</string>
+  <string name="category">category</string>
+  <string name="title_activity_info">InfoActivity</string>
+  <string name="title_activity_info_display">InfoDisplayActivity</string>
+  <string name="title_activity_info_display2">InfoDisplayActivity2</string>
+  <string name="action_settings">Settings</string>
+  <string name="section_format">Hello World from section: %1$d</string>
+  <string name="title_activity_add_entry">AddEntryActivity</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
+  <string name="title_activity_main">MainActivity</string>
+  <string name="large_text">
+    "Material is the metaphor.\n\n"
+
+    "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+    "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+    "technologically advanced and open to imagination and magic.\n"
+    "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+    "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+    "flexibility of the material creates new affordances that supercede those in the physical "
+    "world, without breaking the rules of physics.\n"
+    "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+    "interact, and exist in space and in relation to each other. Realistic lighting shows "
+    "seams, divides space, and indicates moving parts.\n\n"
+
+    "Bold, graphic, intentional.\n\n"
+
+    "The foundational elements of print based design typography, grids, space, scale, color, "
+    "and use of imagery guide visual treatments. These elements do far more than please the "
+    "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+    "imagery, large scale typography, and intentional white space create a bold and graphic "
+    "interface that immerse the user in the experience.\n"
+    "An emphasis on user actions makes core functionality immediately apparent and provides "
+    "waypoints for the user.\n\n"
+
+    "Motion provides meaning.\n\n"
+
+    "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+    "inflection points that initiate motion, transforming the whole design.\n"
+    "All action takes place in a single environment. Objects are presented to the user without "
+    "breaking the continuity of experience even as they transform and reorganize.\n"
+    "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+    "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+
+    "3D world.\n\n"
+
+    "The material environment is a 3D space, which means all objects have x, y, and z "
+    "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+    "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+    "position along the z-axis and has a standard 1dp thickness.\n"
+    "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+    "emulated by manipulating the y-axis.\n\n"
+
+    "Light and shadow.\n\n"
+
+    "Within the material environment, virtual lights illuminate the scene. Key lights create "
+    "directional shadows, while ambient light creates soft shadows from all angles.\n"
+    "Shadows in the material environment are cast by these two light sources. In Android "
+    "development, shadows occur when light sources are blocked by sheets of material at "
+    "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+    "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+
+    "Resting elevation.\n\n"
+
+    "All material objects, regardless of size, have a resting elevation, or default elevation "
+    "that does not change. If an object changes elevation, it should return to its resting "
+    "elevation as soon as possible.\n\n"
+
+    "Component elevations.\n\n"
+
+    "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+    "does not vary from 6dp in one app to 16dp in another app).\n"
+    "Components may have different resting elevations across platforms, depending on the depth "
+    "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+
+    "Responsive elevation and dynamic elevation offsets.\n\n"
+
+    "Some component types have responsive elevation, meaning they change elevation in response "
+    "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+    "changes are consistently implemented using dynamic elevation offsets.\n"
+    "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+    "to the component’s resting state. They ensure that elevation changes are consistent "
+    "across actions and component types. For example, all components that lift on press have "
+    "the same elevation change relative to their resting elevation.\n"
+    "Once the input event is completed or cancelled, the component will return to its resting "
+    "elevation.\n\n"
+
+    "Avoiding elevation interference.\n\n"
+
+    "Components with responsive elevations may encounter other components as they move between "
+    "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+    "through other material, components avoid interfering with one another any number of ways, "
+    "whether on a per component basis or using the entire app layout.\n"
+    "On a component level, components can move or be removed before they cause interference. "
+    "For example, a floating action button (FAB) can disappear or move off screen before a "
+    "user picks up a card, or it can move if a snackbar appears.\n"
+    "On the layout level, design your app layout to minimize opportunities for interference. "
+    "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+    "when a user tries to pick up one of cards.\n\n"
+  </string>
 
 </resources>
